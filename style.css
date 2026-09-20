@@ -1055,3 +1055,39 @@ linear-gradient(145deg,rgba(214,226,168,.09),rgba(255,255,255,.03));display:grid
   .info-visual-icon{right:14px;bottom:42px;width:54px;height:54px}
   .gallery-visual{padding:10px}.gallery-count-mark{right:12px;top:12px}
 }
+
+
+/* Grafarholt history card + timeline */
+.history-visual{
+  background:
+    radial-gradient(circle at 78% 22%,rgba(214,226,168,.15),transparent 24%),
+    linear-gradient(145deg,#17231b,#0b120d 72%);
+}
+.history-visual:before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:34px 34px
+}
+.history-year{position:absolute;left:18px;top:46px;font:800 clamp(38px,5vw,58px)/1 "Manrope";letter-spacing:-.06em;color:#d6e2a8}
+.history-line{position:absolute;left:24px;right:26px;top:126px;height:2px;background:linear-gradient(90deg,#d6e2a8,rgba(214,226,168,.12))}
+.history-dot{position:absolute;top:120px;width:14px;height:14px;border-radius:50%;background:#d6e2a8;border:3px solid #101811}
+.history-dot-a{left:24px}.history-dot-b{right:26px}
+.history-label{position:absolute;top:143px;font:800 8px/1 "Manrope";letter-spacing:.14em;color:rgba(255,255,255,.45)}
+.history-label-a{left:18px}.history-label-b{right:18px}
+.graf-action-history .graf-action-icon{color:#d6e2a8}
+
+.history-hero{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;padding:16px;border:1px solid rgba(255,255,255,.07);background:linear-gradient(145deg,rgba(214,226,168,.08),rgba(255,255,255,.025));border-radius:18px;margin-bottom:10px}
+.history-hero>span{font:800 44px/1 "Manrope";letter-spacing:-.06em;color:#d6e2a8}
+.history-hero small{font-size:8px;letter-spacing:.15em;color:#9fb57e;font-weight:800}
+.history-hero h3{font:800 20px/1.05 "Manrope";letter-spacing:-.035em;margin:5px 0 0}
+.history-timeline{display:grid;gap:8px}
+.history-timeline article{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,.07);background:#151f18}
+.history-timeline article>span{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;background:rgba(214,226,168,.08);color:#c8dc9b;font:800 12px/1 "Manrope"}
+.history-timeline small{font-size:8px;letter-spacing:.14em;color:#9fb57e;font-weight:800}
+.history-timeline h3{font:800 16px/1.05 "Manrope";margin:4px 0 5px}
+.history-timeline p{font-size:10px;color:rgba(238,244,239,.48);margin:0}
+@media(max-width:520px){
+  .history-hero{grid-template-columns:1fr}.history-hero>span{font-size:38px}
+  .history-timeline article{grid-template-columns:52px 1fr;padding:12px}
+  .history-timeline article>span{width:44px;height:44px;border-radius:12px}
+}
