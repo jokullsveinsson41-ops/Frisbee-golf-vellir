@@ -400,3 +400,52 @@ button,input{font:inherit}
   .pro-options .option-card h2{font-size:17px}
   .pro-options .option-card p{font-size:10px}
 }
+
+
+/* Grafarholt visual option upgrade */
+.pro-course .pro-hero .course-app-copy{padding-bottom:30px}
+.pro-course .pro-hero h1{font-size:clamp(58px,8.8vw,108px);max-width:100%;white-space:normal}
+.pro-course .pro-hero .eyebrow{margin-bottom:4px}
+.pro-course .course-app-meta{gap:6px}
+.pro-options{grid-template-columns:1.08fr 1fr 1fr 1fr}
+.pro-options .option-visual{position:relative;min-height:220px;padding:0;overflow:hidden;isolation:isolate;background:#111914;border:1px solid rgba(255,255,255,.08)}
+.pro-options .option-bg{position:absolute;inset:0;z-index:0}
+.pro-options .option-bg img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.05) brightness(.58);transition:transform .45s ease,filter .45s ease}
+.pro-options .option-bg-map{background:
+radial-gradient(circle at 30% 35%,rgba(214,226,168,.25),transparent 24%),
+linear-gradient(135deg,rgba(214,226,168,.96),rgba(158,188,116,.92)),
+repeating-linear-gradient(0deg,rgba(17,24,18,.10) 0 1px,transparent 1px 28px),
+repeating-linear-gradient(90deg,rgba(17,24,18,.10) 0 1px,transparent 1px 28px)}
+.pro-options .option-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(6,12,8,.90),rgba(6,12,8,.10) 68%)}
+.pro-options .option-primary .option-overlay{background:linear-gradient(0deg,rgba(17,24,18,.34),rgba(17,24,18,.03) 62%)}
+.pro-options .option-top,.pro-options .option-copy{position:relative;z-index:2}
+.pro-options .option-top{padding:16px 16px 0}
+.pro-options .option-copy{padding:0 16px 16px;margin-top:auto}
+.pro-options .option-card{justify-content:space-between}
+.pro-options .option-card:hover .option-bg img{transform:scale(1.05);filter:saturate(.95) contrast(1.08) brightness(.67)}
+.pro-options .option-card small{color:rgba(255,255,255,.62)}
+.pro-options .option-card h2{font-size:22px;color:#fff;text-shadow:0 6px 18px rgba(0,0,0,.25)}
+.pro-options .option-card p{color:rgba(255,255,255,.62)}
+.pro-options .option-primary small{color:rgba(17,24,18,.58)}
+.pro-options .option-primary h2{color:#111812;text-shadow:none}
+.pro-options .option-primary p{color:rgba(17,24,18,.64)}
+.pro-options .option-icon{backdrop-filter:blur(10px);background:rgba(255,255,255,.11)}
+.pro-options .option-primary .option-icon{background:rgba(17,24,18,.12)}
+.pro-options .option-arrow{padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px);color:rgba(255,255,255,.55)}
+.pro-options .option-primary .option-arrow{background:rgba(17,24,18,.08);border-color:rgba(17,24,18,.10);color:rgba(17,24,18,.5)}
+
+@media(max-width:820px){
+  .pro-course .pro-hero h1{font-size:clamp(50px,15vw,76px);letter-spacing:-.065em;line-height:.84}
+  .pro-course .pro-hero .course-app-copy{padding-bottom:22px}
+  .pro-course .course-app-meta span{font-size:10px;padding:7px 9px}
+  .pro-options{grid-template-columns:1fr 1fr;gap:10px}
+  .pro-options .option-visual{min-height:180px}
+  .pro-options .option-top{padding:13px 13px 0}
+  .pro-options .option-copy{padding:0 13px 13px}
+  .pro-options .option-card h2{font-size:18px}
+  .pro-options .option-card p{font-size:10px}
+}
+@media(max-width:430px){
+  .pro-course .pro-hero h1{font-size:clamp(46px,14vw,64px)}
+  .pro-options .option-visual{min-height:170px}
+}
