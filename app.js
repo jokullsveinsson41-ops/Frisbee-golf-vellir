@@ -66,3 +66,58 @@ document.addEventListener("DOMContentLoaded",()=>{
   const top=document.querySelector("[data-top]");
   if(top) top.addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
 });
+
+/* motion system */
+document.addEventListener("DOMContentLoaded",()=>{
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce)return;
+
+  document.documentElement.classList.add("motion-ready");
+
+  const staged=[...document.querySelectorAll(
+    ".atlas-copy > *, .quick-panel > *, .atlas-section-head > *, .atlas-card, .featured-atlas-card > *, .reyk-card, .graf-command-head > *, .graf-action, .graf-stats > span, .future-grid article, .nearby-course > *"
+  )];
+
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      const el=entry.target;
+      el.classList.add("motion-in");
+      revealObserver.unobserve(el);
+    });
+  },{threshold:.12,rootMargin:"0px 0px -4% 0px"});
+
+  staged.forEach((el,i)=>{
+    el.classList.add("motion-item");
+    el.style.setProperty("--delay",Math.min((i%8)*55,330)+"ms");
+    revealObserver.observe(el);
+  });
+
+  const hero=document.querySelector(".atlas-hero-image,.graf-hero>img,.atlas-city-hero>img");
+  if(hero){
+    let ticking=false;
+    const move=()=>{
+      const y=Math.min(scrollY,700);
+      hero.style.transform=`translate3d(0,${y*.055}px,0) scale(1.035)`;
+      ticking=false;
+    };
+    addEventListener("scroll",()=>{
+      if(!ticking){requestAnimationFrame(move);ticking=true}
+    },{passive:true});
+  }
+
+  document.querySelectorAll(".graf-action,.atlas-card,.reyk-card,.quick-panel>a").forEach(el=>{
+    el.addEventListener("pointerdown",()=>el.classList.add("tap-pop"));
+    ["pointerup","pointercancel","pointerleave"].forEach(ev=>el.addEventListener(ev,()=>el.classList.remove("tap-pop")));
+  });
+
+  document.querySelectorAll("dialog.course-modal").forEach(dialog=>{
+    dialog.addEventListener("close",()=>dialog.classList.remove("modal-live"));
+  });
+  document.querySelectorAll("[data-modal-open]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const d=document.getElementById(btn.dataset.modalOpen);
+      requestAnimationFrame(()=>d?.classList.add("modal-live"));
+    });
+  });
+});
