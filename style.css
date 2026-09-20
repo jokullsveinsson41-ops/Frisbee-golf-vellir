@@ -1091,3 +1091,50 @@ linear-gradient(145deg,rgba(214,226,168,.09),rgba(255,255,255,.03));display:grid
   .history-timeline article{grid-template-columns:52px 1fr;padding:12px}
   .history-timeline article>span{width:44px;height:44px;border-radius:12px}
 }
+
+
+/* ===== MULTI-COURSE PREMIUM SYSTEM ===== */
+.metro-course{background:#080d0a}
+.metro-hero{min-height:55vh;background:
+radial-gradient(circle at 75% 22%,rgba(214,226,168,.12),transparent 28%),
+linear-gradient(145deg,#101a14,#080d0a 70%)}
+.metro-hero-art{position:absolute;inset:0;overflow:hidden;z-index:0}
+.metro-hero-art:before{content:"";position:absolute;inset:0;background-image:
+linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+background-size:58px 58px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent 95%)}
+.metro-orbit{position:absolute;width:min(52vw,620px);height:min(52vw,620px);right:-8vw;top:-12vw;border-radius:50%;border:1px solid rgba(214,226,168,.14);box-shadow:0 0 0 80px rgba(214,226,168,.025),0 0 0 160px rgba(214,226,168,.015)}
+.metro-basket{position:absolute;right:10vw;top:14%;width:160px;height:210px;opacity:.38}
+.metro-basket i{position:absolute;left:72px;top:0;width:16px;height:210px;background:#d6e2a8;border-radius:999px}
+.metro-basket b{position:absolute;left:18px;top:56px;width:126px;height:10px;background:#d6e2a8;border-radius:999px;box-shadow:0 58px 0 #d6e2a8}
+.metro-basket span{position:absolute;left:38px;top:66px;width:86px;height:58px;border-left:2px solid #d6e2a8;border-right:2px solid #d6e2a8;background:repeating-linear-gradient(90deg,transparent 0 12px,#d6e2a8 12px 14px)}
+.metro-course-code{position:absolute;right:24px;bottom:24px;font:800 clamp(34px,6vw,78px)/1 "Manrope";letter-spacing:-.06em;color:rgba(255,255,255,.055)}
+.metro-course .graf-hero-overlay{background:linear-gradient(0deg,rgba(4,9,6,.96),rgba(4,9,6,.20) 65%),linear-gradient(90deg,rgba(4,9,6,.56),transparent 56%)}
+.metro-course .graf-hero h1{max-width:1000px}
+.metro-course .graf-action-grid{background:rgba(255,255,255,.022)}
+.metro-holes-visual{background:
+radial-gradient(circle at 78% 16%,rgba(214,226,168,.16),transparent 24%),
+linear-gradient(145deg,#19261d,#0c130f)}
+.metro-holes-visual>strong{position:absolute;left:18px;top:44px;font:800 clamp(44px,6vw,72px)/1 "Manrope";letter-spacing:-.06em;color:#d6e2a8}
+.metro-holes-visual>span{position:absolute;left:21px;top:108px;font:800 8px/1 "Manrope";letter-spacing:.16em;color:rgba(255,255,255,.42)}
+.score-lines{position:absolute;right:18px;top:32px;width:42%;height:100px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:
+repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 25px),
+repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 33%)}
+.metro-course .graf-action-copy h3{max-width:94%}
+.metro-course .history-year{font-size:clamp(32px,5vw,52px)}
+
+.klambratun .metro-hero{background:radial-gradient(circle at 78% 20%,rgba(214,226,168,.18),transparent 28%),linear-gradient(145deg,#16221a,#080d0a 72%)}
+.laugardalur .metro-hero{background:radial-gradient(circle at 78% 20%,rgba(161,197,171,.16),transparent 28%),linear-gradient(145deg,#14211c,#080d0a 72%)}
+.seljahverfi .metro-hero{background:radial-gradient(circle at 78% 20%,rgba(190,214,147,.14),transparent 28%),linear-gradient(145deg,#172318,#080d0a 72%)}
+.fellahverfi .metro-hero{background:radial-gradient(circle at 78% 20%,rgba(147,172,214,.12),transparent 28%),linear-gradient(145deg,#151f1d,#080d0a 72%)}
+.kjalarnes .metro-hero{background:radial-gradient(circle at 78% 20%,rgba(205,226,168,.15),transparent 28%),linear-gradient(145deg,#16231d,#080d0a 72%)}
+.gudmundarlundur .metro-hero{background:radial-gradient(circle at 78% 20%,rgba(118,166,112,.20),transparent 28%),linear-gradient(145deg,#102016,#070d09 72%)}
+
+@media(max-width:760px){
+  .metro-hero{min-height:50vh}
+  .metro-basket{right:-4px;top:12%;transform:scale(.72);transform-origin:top right}
+  .metro-orbit{width:420px;height:420px;right:-210px;top:-90px}
+  .metro-course-code{right:14px;bottom:18px}
+  .metro-course .graf-hero h1{font-size:clamp(44px,13vw,68px);overflow-wrap:anywhere}
+  .metro-holes-visual>strong{font-size:44px}
+}
