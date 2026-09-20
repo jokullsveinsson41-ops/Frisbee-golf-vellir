@@ -898,3 +898,16 @@ linear-gradient(145deg,#1b2a21,#0d1510 72%)}
   .atlas-city-hero{min-height:50vh}.atlas-city-copy h1{font-size:clamp(54px,16vw,82px)}.city-hero-row{display:block}.city-stats{margin-top:15px}
   .reyk-course-grid{grid-template-columns:1fr;padding:7px;border-radius:22px}.reyk-card-featured{grid-column:auto;min-height:320px}.reyk-card{min-height:240px}
 }
+
+
+.region-hero{min-height:62vh}
+.region-status{display:inline-flex;padding:9px 11px;border-radius:999px;background:rgba(214,226,168,.10);border:1px solid rgba(214,226,168,.18);color:#d6e2a8;font:800 9px/1 "Manrope";letter-spacing:.14em;white-space:nowrap}
+.future-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025);border-radius:28px}
+.future-grid article{min-height:220px;padding:18px;border-radius:19px;border:1px solid rgba(255,255,255,.07);background:
+radial-gradient(circle at 80% 18%,rgba(214,226,168,.08),transparent 26%),
+linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));display:flex;flex-direction:column;justify-content:space-between}
+.future-grid article>span{font:800 11px/1 "Manrope";color:#9fb77f}
+.future-grid small{font-size:9px;letter-spacing:.14em;color:#a9c187;font-weight:800}
+.future-grid h3{font:800 24px/1.03 "Manrope";letter-spacing:-.04em;margin:7px 0 9px}
+.future-grid p{font-size:12px;color:rgba(238,244,239,.48);margin:0;max-width:280px}
+@media(max-width:700px){.future-grid{grid-template-columns:1fr;border-radius:22px}.future-grid article{min-height:170px}.region-status{margin-top:14px}}
