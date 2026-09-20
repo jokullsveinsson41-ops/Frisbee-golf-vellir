@@ -1144,3 +1144,138 @@ repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 33%)
 .nearby-course h3{font:800 26px/1 "Manrope";letter-spacing:-.04em;margin:6px 0 7px}
 .nearby-course p{max-width:700px;margin:0;color:rgba(238,244,239,.46);font-size:11px}
 @media(max-width:700px){.nearby-course{align-items:flex-start;flex-direction:column}.nearby-course .button{width:100%}}
+
+
+/* ===== MOTION SYSTEM ===== */
+@keyframes heroDrift{
+  0%{transform:scale(1.03) translate3d(0,0,0)}
+  50%{transform:scale(1.055) translate3d(-.4%,.3%,0)}
+  100%{transform:scale(1.03) translate3d(0,0,0)}
+}
+@keyframes pulseDot{
+  0%,100%{box-shadow:0 0 0 0 rgba(207,225,154,.28),0 0 16px rgba(207,225,154,.7)}
+  50%{box-shadow:0 0 0 8px rgba(207,225,154,0),0 0 22px rgba(207,225,154,.88)}
+}
+@keyframes sheen{
+  0%{transform:translateX(-140%) skewX(-18deg);opacity:0}
+  20%{opacity:.28}
+  55%{opacity:.15}
+  100%{transform:translateX(180%) skewX(-18deg);opacity:0}
+}
+@keyframes modalRise{
+  from{opacity:0;transform:translate(-50%,-46%) scale(.97)}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+@keyframes modalBackdrop{
+  from{backdrop-filter:blur(0);background:rgba(4,8,5,0)}
+  to{backdrop-filter:blur(14px);background:rgba(4,8,5,.74)}
+}
+@keyframes lineGrow{
+  from{transform:scaleX(0)}
+  to{transform:scaleX(1)}
+}
+@keyframes floatMark{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-7px) rotate(1.5deg)}
+}
+
+.motion-ready .motion-item{
+  opacity:0;
+  transform:translate3d(0,18px,0) scale(.992);
+  transition:
+    opacity .66s cubic-bezier(.2,.75,.2,1) var(--delay,0ms),
+    transform .66s cubic-bezier(.2,.75,.2,1) var(--delay,0ms);
+  will-change:transform,opacity
+}
+.motion-ready .motion-item.motion-in{
+  opacity:1;
+  transform:translate3d(0,0,0) scale(1)
+}
+.status-dot{animation:pulseDot 2.2s ease-in-out infinite}
+.atlas-grid,.pro-grid{background-position:0 0;transition:background-position .6s ease}
+.atlas-hero:hover .atlas-grid,.graf-hero:hover .atlas-grid{background-position:10px 10px}
+
+.atlas-hero-image,.graf-hero>img,.atlas-city-hero>img{
+  will-change:transform;
+  transition:transform .18s linear
+}
+.atlas-hero:not(:hover) .atlas-hero-image{
+  animation:heroDrift 18s ease-in-out infinite
+}
+
+.lux-card,.graf-action,.reyk-card{
+  transform-style:preserve-3d;
+  transition:
+    transform .26s cubic-bezier(.2,.75,.2,1),
+    border-color .26s ease,
+    box-shadow .26s ease,
+    filter .26s ease
+}
+.lux-card:hover,.graf-action:hover,.reyk-card:hover{
+  transform:translateY(-4px) scale(1.008);
+  box-shadow:0 22px 50px rgba(0,0,0,.24)
+}
+.tap-pop{transform:scale(.975)!important}
+.lux-card:after,.graf-action:after,.reyk-card:after{
+  content:"";
+  position:absolute;
+  top:-20%;bottom:-20%;
+  left:-26%;
+  width:34%;
+  z-index:5;
+  pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);
+  transform:translateX(-140%) skewX(-18deg);
+  opacity:0
+}
+.lux-card:hover:after,.graf-action:hover:after,.reyk-card:hover:after{
+  animation:sheen .85s ease
+}
+
+.round-arrow,.graf-action-copy>span,.button,.card-cta{
+  transition:transform .22s ease,background .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease
+}
+.lux-card:hover .round-arrow,.reyk-card:hover .round-arrow{
+  transform:translateX(4px) rotate(-4deg)
+}
+.graf-action:hover .graf-action-copy>span{transform:translateX(3px)}
+.button:hover{transform:translateY(-2px) scale(1.018);box-shadow:0 12px 28px rgba(0,0,0,.15)}
+.button:active{transform:scale(.98)}
+
+.metro-orbit,.info-ring-a,.info-hero-orbit{animation:floatMark 7s ease-in-out infinite}
+.info-ring-b{animation:floatMark 5.5s ease-in-out infinite reverse}
+.history-line{transform-origin:left center;animation:lineGrow .9s cubic-bezier(.2,.75,.2,1) both}
+
+.course-modal[open]::backdrop{animation:modalBackdrop .22s ease both}
+.course-modal[open] .modal-shell{animation:modalRise .28s cubic-bezier(.18,.84,.26,1) both}
+.modal-close{transition:transform .18s ease,background .18s ease}
+.modal-close:hover{transform:rotate(7deg) scale(1.05)}
+.modal-hole-row,.graf-info-list article,.history-timeline article{
+  transition:transform .18s ease,border-color .18s ease,background .18s ease
+}
+.modal-hole-row:hover,.graf-info-list article:hover,.history-timeline article:hover{
+  transform:translateX(3px);
+  border-color:rgba(214,226,168,.18);
+  background:#18231b
+}
+
+.brand-line div{animation:brandMarquee 18s linear infinite}
+@keyframes brandMarquee{
+  from{transform:translateX(-2vw)}
+  to{transform:translateX(-42vw)}
+}
+
+@media(max-width:760px){
+  .lux-card:hover,.graf-action:hover,.reyk-card:hover{transform:none;box-shadow:none}
+  .motion-ready .motion-item{transform:translate3d(0,12px,0) scale(.996)}
+  .motion-ready .motion-item.motion-in{transform:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.001ms!important
+  }
+}
