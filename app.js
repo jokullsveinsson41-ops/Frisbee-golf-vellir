@@ -121,3 +121,29 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
   });
 });
+
+
+/* AI cinematic pointer depth */
+document.addEventListener("DOMContentLoaded",()=>{
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce)return;
+  const heroes=document.querySelectorAll(".atlas-hero,.atlas-city-hero,.graf-hero,.metro-hero");
+  heroes.forEach(hero=>{
+    const img=hero.querySelector("img");
+    hero.addEventListener("pointermove",e=>{
+      const r=hero.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      hero.style.setProperty("--px",(x*10).toFixed(2)+"px");
+      hero.style.setProperty("--py",(y*8).toFixed(2)+"px");
+      if(img && !hero.classList.contains("atlas-hero")){
+        img.style.transform=`scale(1.055) translate3d(${x*-8}px,${y*-6}px,0)`;
+      }
+    },{passive:true});
+    hero.addEventListener("pointerleave",()=>{
+      hero.style.setProperty("--px","0px");
+      hero.style.setProperty("--py","0px");
+      if(img && !hero.classList.contains("atlas-hero")) img.style.transform="";
+    });
+  });
+});
