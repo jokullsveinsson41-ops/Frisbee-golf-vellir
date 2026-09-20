@@ -1279,3 +1279,142 @@ repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 33%)
     transition-duration:.001ms!important
   }
 }
+
+
+/* ===== AI CINEMATIC VISUAL SYSTEM ===== */
+:root{
+  --ai-lime:#d8ff9f;
+  --ai-cyan:#79f5ff;
+  --ai-mint:#8dffbd;
+  --ai-ink:#050908;
+}
+body.pro-site,body.pro-course{
+  background:
+    radial-gradient(circle at 18% 8%,rgba(121,245,255,.06),transparent 28%),
+    radial-gradient(circle at 84% 14%,rgba(216,255,159,.05),transparent 24%),
+    #060a08;
+}
+.site-header{
+  background:linear-gradient(180deg,rgba(4,8,7,.84),rgba(4,8,7,.32))!important;
+  border-bottom:1px solid rgba(141,255,189,.10)!important;
+  backdrop-filter:blur(18px) saturate(140%);
+}
+.brand-mark,.status-dot{color:var(--ai-lime)}
+.status-dot{box-shadow:0 0 18px rgba(216,255,159,.8)}
+.atlas-hero,.atlas-city-hero,.graf-hero{isolation:isolate}
+.atlas-hero:before,.atlas-city-hero:before,.graf-hero:before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(circle at 72% 20%,rgba(121,245,255,.10),transparent 22%),
+    linear-gradient(120deg,rgba(216,255,159,.04),transparent 38%);
+  mix-blend-mode:screen;
+}
+.atlas-hero-image,.atlas-city-hero>img,.graf-hero>img,
+.atlas-card>img,.reyk-card>img,.featured-atlas-image>img,.graf-action-bg>img{
+  filter:saturate(1.18) contrast(1.09) brightness(.92);
+}
+.atlas-hero-shade,.atlas-city-overlay,.graf-hero-overlay{
+  background:
+    linear-gradient(90deg,rgba(2,6,5,.84),rgba(2,6,5,.22) 62%,rgba(2,6,5,.42)),
+    linear-gradient(0deg,rgba(3,7,5,.82),transparent 54%)!important;
+}
+.atlas-grid{
+  opacity:.45;
+  background-image:
+    linear-gradient(rgba(141,255,189,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(121,245,255,.05) 1px,transparent 1px)!important;
+}
+.atlas-copy h1,.atlas-city-copy h1,.graf-hero h1{
+  text-shadow:0 12px 54px rgba(0,0,0,.52),0 0 36px rgba(121,245,255,.06);
+}
+.eyebrow.light{color:var(--ai-lime)!important}
+.button-light{
+  background:linear-gradient(135deg,#e2ffb3,#aef6d7)!important;
+  color:#07100a!important;
+  border-color:transparent!important;
+  box-shadow:0 10px 35px rgba(143,255,190,.14);
+}
+.button-ghost{border-color:rgba(121,245,255,.16)!important;background:rgba(121,245,255,.035)!important}
+.quick-panel,.atlas-card,.reyk-card,.featured-atlas-card,.graf-action,.nearby-course{
+  border-color:rgba(141,255,189,.10)!important;
+  box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.03);
+}
+.quick-panel{
+  background:linear-gradient(160deg,rgba(9,18,15,.80),rgba(6,11,9,.52))!important;
+  backdrop-filter:blur(22px) saturate(140%);
+}
+.quick-panel a:hover,.reyk-card:hover,.graf-action:hover{
+  border-color:rgba(141,255,189,.22)!important;
+  box-shadow:0 26px 70px rgba(0,0,0,.30),0 0 34px rgba(121,245,255,.045);
+}
+.atlas-card-shade,.reyk-card-shade,.featured-atlas-overlay,.graf-action-shade{
+  background:linear-gradient(0deg,rgba(2,7,5,.90),rgba(2,7,5,.06) 64%)!important;
+}
+.glass-pill,.ready-pill,.graf-verified{
+  background:rgba(216,255,159,.10)!important;
+  border-color:rgba(216,255,159,.18)!important;
+  color:#e6ffc2!important;
+  backdrop-filter:blur(14px);
+}
+.round-arrow,.graf-action-icon{
+  background:linear-gradient(145deg,rgba(216,255,159,.12),rgba(121,245,255,.08))!important;
+  border-color:rgba(216,255,159,.16)!important;
+  color:#e5ffc1!important;
+}
+.course-art{
+  background:
+    radial-gradient(circle at 24% 18%,rgba(121,245,255,.11),transparent 25%),
+    radial-gradient(circle at 78% 78%,rgba(216,255,159,.10),transparent 26%),
+    linear-gradient(145deg,#0b1714,#07100d)!important;
+}
+.course-art:before{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(rgba(141,255,189,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(121,245,255,.04) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.course-art span{color:#dfffb0!important;text-shadow:0 0 22px rgba(216,255,159,.2)}
+.featured-atlas{
+  background:
+    radial-gradient(circle at 86% 12%,rgba(121,245,255,.05),transparent 24%),
+    radial-gradient(circle at 14% 82%,rgba(216,255,159,.05),transparent 26%),
+    #070b09!important;
+}
+.brand-line{
+  background:linear-gradient(90deg,#d9ff9f,#79f5ff,#8dffbd)!important;
+  color:#061009!important;
+}
+.info-visual,.history-visual,.map-visual,.metro-holes-visual{
+  background:
+    radial-gradient(circle at 72% 22%,rgba(121,245,255,.12),transparent 22%),
+    radial-gradient(circle at 20% 78%,rgba(216,255,159,.10),transparent 24%),
+    linear-gradient(145deg,#0c1915,#07100d)!important;
+}
+.info-visual-icon,.info-hero-art svg{stroke:var(--ai-cyan)!important}
+.history-year,.gallery-count-mark{color:var(--ai-lime)!important}
+.modal-shell{
+  background:
+    radial-gradient(circle at 88% 8%,rgba(121,245,255,.05),transparent 20%),
+    linear-gradient(160deg,#101a15,#09100d)!important;
+  border-color:rgba(141,255,189,.11)!important;
+}
+.modal-hole-row,.graf-info-list article,.history-timeline article{
+  background:rgba(255,255,255,.025)!important;
+  border-color:rgba(141,255,189,.07)!important;
+}
+.modal-hole-row:hover,.graf-info-list article:hover,.history-timeline article:hover{
+  background:rgba(141,255,189,.045)!important;
+}
+.atlas-footer,.course-app-footer{
+  border-color:rgba(141,255,189,.08)!important;
+}
+@keyframes aiGlow{
+  0%,100%{filter:drop-shadow(0 0 0 rgba(121,245,255,0))}
+  50%{filter:drop-shadow(0 0 18px rgba(121,245,255,.10))}
+}
+.atlas-card,.reyk-card,.graf-action{animation:aiGlow 7s ease-in-out infinite}
+.atlas-card:nth-child(2n),.reyk-card:nth-child(2n),.graf-action:nth-child(2n){animation-delay:-3.5s}
+@media(max-width:760px){
+  .atlas-card,.reyk-card,.graf-action{animation:none}
+}
