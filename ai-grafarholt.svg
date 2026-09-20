@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#10131a"/><stop offset=".42" stop-color="#1d2d2a"/><stop offset="1" stop-color="#0c130e"/></linearGradient><radialGradient id="sun"><stop stop-color="#ffefb1" stop-opacity=".95"/><stop offset=".25" stop-color="#ffb56e" stop-opacity=".55"/><stop offset="1" stop-color="#ff6f61" stop-opacity="0"/></radialGradient><filter id="noise"><feTurbulence baseFrequency=".85" numOctaves="2" seed="12"/><feComponentTransfer><feFuncA type="table" tableValues="0 .07"/></feComponentTransfer></filter></defs>
+<rect width="1600" height="1000" fill="url(#s)"/>
+<circle cx="1280" cy="320" r="260" fill="url(#sun)"/>
+<path d="M0 690 C240 560 430 650 620 530 C780 430 980 470 1140 410 C1310 350 1450 400 1600 300 L1600 1000 0 1000Z" fill="#0c130e"/>
+<path d="M0 770 C210 670 390 730 560 650 C760 560 930 600 1100 550 C1310 490 1460 540 1600 500 L1600 1000 0 1000Z" fill="#14231a"/>
+<g transform="translate(920 520)">
+<rect x="0" y="0" width="18" height="240" rx="9" fill="#dceeb0"/><rect x="-82" y="56" width="182" height="12" rx="6" fill="#dceeb0"/><path d="M-62 68 L-40 158 M-36 68 L-18 158 M-10 68 L0 158 M16 68 L18 158 M42 68 L38 158 M68 68 L58 158" stroke="#dceeb0" stroke-width="5"/><rect x="-46" y="156" width="110" height="12" rx="6" fill="#dceeb0"/></g>
+<path d="M190 760 C330 690 480 700 610 650" stroke="#73f1a4" stroke-opacity=".28" stroke-width="3" fill="none"/>
+<path d="M220 790 C360 720 500 730 640 680" stroke="#72d8ff" stroke-opacity=".18" stroke-width="2" fill="none"/>
+<rect width="1600" height="1000" filter="url(#noise)" opacity=".25"/>
+</svg>
