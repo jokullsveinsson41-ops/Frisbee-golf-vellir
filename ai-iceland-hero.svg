@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#071015"/><stop offset=".45" stop-color="#0d1e21"/><stop offset="1" stop-color="#07100c"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#b7ff8a" stop-opacity=".75"/><stop offset="1" stop-color="#63d9ff" stop-opacity="0"/></radialGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d1710"/><stop offset="1" stop-color="#162b1c"/></linearGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="30"/></filter>
+<filter id="grain"><feTurbulence baseFrequency=".9" numOctaves="2" seed="8" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .09"/></feComponentTransfer></filter>
+</defs>
+<rect width="1600" height="1000" fill="url(#sky)"/>
+<ellipse cx="1150" cy="220" rx="480" ry="230" fill="url(#glow)" filter="url(#blur)"/>
+<path d="M0 520 C240 420 410 470 590 410 C770 350 960 390 1150 330 C1320 280 1460 320 1600 260 L1600 0 0 0Z" fill="#58ffd0" opacity=".06"/>
+<path d="M0 650 L210 490 420 610 680 410 910 560 1190 350 1600 560 1600 1000 0 1000Z" fill="#0b120f"/>
+<path d="M0 730 L300 610 520 700 760 560 1050 670 1350 520 1600 610 1600 1000 0 1000Z" fill="url(#ground)"/>
+<g transform="translate(1090 560)">
+<rect x="0" y="0" width="18" height="220" rx="9" fill="#d9f3bf"/>
+<rect x="-78" y="50" width="175" height="12" rx="6" fill="#d9f3bf"/>
+<path d="M-58 62 L-36 150 M-34 62 L-18 150 M-10 62 L0 150 M14 62 L18 150 M38 62 L36 150 M62 62 L54 150" stroke="#d9f3bf" stroke-width="5" opacity=".9"/>
+<rect x="-46" y="148" width="110" height="12" rx="6" fill="#d9f3bf"/>
+</g>
+<circle cx="1090" cy="560" r="150" fill="none" stroke="#b8ff9b" stroke-opacity=".18" stroke-width="2"/>
+<circle cx="1090" cy="560" r="220" fill="none" stroke="#7cf9ff" stroke-opacity=".08" stroke-width="1"/>
+<rect width="1600" height="1000" filter="url(#grain)" opacity=".25"/>
+</svg>
