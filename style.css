@@ -1418,3 +1418,77 @@ body.pro-site,body.pro-course{
 @media(max-width:760px){
   .atlas-card,.reyk-card,.graf-action{animation:none}
 }
+
+
+/* ===== AI CINEMATIC PASS 2 — obvious visual change ===== */
+.atlas-hero{
+  min-height:100svh!important;
+  overflow:hidden;
+}
+.atlas-hero-image{
+  transform:scale(1.08);
+  animation:aiHeroBreath 16s ease-in-out infinite alternate!important;
+}
+@keyframes aiHeroBreath{
+  0%{transform:scale(1.08) translate3d(0,0,0);filter:saturate(1.12) contrast(1.08) brightness(.88)}
+  100%{transform:scale(1.14) translate3d(-1.3%,1%,0);filter:saturate(1.34) contrast(1.12) brightness(.96)}
+}
+.atlas-hero-shade{
+  background:
+    radial-gradient(circle at 73% 28%,rgba(121,245,255,.16),transparent 26%),
+    radial-gradient(circle at 55% 82%,rgba(216,255,159,.08),transparent 28%),
+    linear-gradient(90deg,rgba(2,6,5,.88),rgba(2,6,5,.30) 58%,rgba(2,6,5,.48)),
+    linear-gradient(0deg,rgba(3,7,5,.90),transparent 48%)!important;
+}
+.ai-cinematic-hud{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.ai-hud-orbit{position:absolute;border-radius:50%;border:1px solid rgba(141,255,189,.18);box-shadow:0 0 80px rgba(121,245,255,.05)}
+.ai-hud-orbit-a{width:520px;height:520px;right:-120px;top:70px;animation:aiOrbit 18s linear infinite}
+.ai-hud-orbit-b{width:340px;height:340px;right:-30px;top:160px;border-color:rgba(121,245,255,.14);animation:aiOrbit 12s linear infinite reverse}
+@keyframes aiOrbit{to{transform:rotate(360deg)}}
+.ai-hud-orbit:before,.ai-hud-orbit:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--ai-lime);box-shadow:0 0 18px var(--ai-lime)}
+.ai-hud-orbit:before{top:18%;left:10%}.ai-hud-orbit:after{right:4%;bottom:30%;background:var(--ai-cyan);box-shadow:0 0 18px var(--ai-cyan)}
+.ai-disc-flight{position:absolute;width:46vw;height:180px;right:4vw;top:34%;border-top:1px solid rgba(216,255,159,.20);border-radius:50%;transform:rotate(-8deg);opacity:.9}
+.ai-disc-flight span{position:absolute;top:-7px;left:0;width:16px;height:6px;border-radius:50%;background:#e7ffc6;box-shadow:0 0 16px rgba(216,255,159,.8);animation:aiDiscTravel 5s ease-in-out infinite}
+@keyframes aiDiscTravel{0%{left:0;opacity:0}12%{opacity:1}78%{opacity:1}100%{left:calc(100% - 16px);opacity:0}}
+.ai-hud-label{position:absolute;right:26px;bottom:88px;padding:10px 12px;border:1px solid rgba(141,255,189,.13);background:rgba(4,12,9,.30);backdrop-filter:blur(12px);border-radius:12px}
+.ai-hud-label b,.ai-hud-label small{display:block}.ai-hud-label b{font:800 9px/1 Manrope;letter-spacing:.15em;color:#e4ffc1}.ai-hud-label small{font:700 7px/1 Manrope;letter-spacing:.12em;color:rgba(255,255,255,.42);margin-top:4px}
+.ai-hud-coords{position:absolute;right:26px;top:94px;font:800 8px/1 Manrope;letter-spacing:.18em;color:rgba(121,245,255,.48);writing-mode:vertical-rl}
+.atlas-copy h1{
+  background:linear-gradient(180deg,#fff 6%,#f2ffd7 48%,#baf6ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.atlas-copy p{color:rgba(232,247,239,.70)!important}
+.quick-panel{box-shadow:0 32px 100px rgba(0,0,0,.34),0 0 50px rgba(121,245,255,.04)!important}
+.quick-panel:before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(145deg,rgba(216,255,159,.18),transparent 32%,rgba(121,245,255,.12));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;pointer-events:none}
+.atlas-card,.featured-atlas-card,.reyk-card,.graf-action{overflow:hidden}
+.atlas-card img,.reyk-card img,.featured-atlas-image img,.graf-action-bg img{transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .8s ease!important}
+.atlas-card:hover img,.reyk-card:hover img,.featured-atlas-card:hover img,.graf-action:hover .graf-action-bg img{transform:scale(1.07);filter:saturate(1.42) contrast(1.10) brightness(.98)!important}
+.atlas-card:before,.reyk-card:before,.graf-action:before{
+  content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:linear-gradient(115deg,transparent 0 42%,rgba(121,245,255,.08) 50%,transparent 58%);
+  transform:translateX(-120%);transition:transform .8s ease;
+}
+.atlas-card:hover:before,.reyk-card:hover:before,.graf-action:hover:before{transform:translateX(120%)}
+.atlas-section{position:relative}
+.atlas-section:before{content:"";position:absolute;width:320px;height:320px;left:-180px;top:120px;border-radius:50%;background:radial-gradient(circle,rgba(121,245,255,.07),transparent 70%);filter:blur(6px);pointer-events:none}
+.featured-atlas-card{background:
+radial-gradient(circle at 88% 16%,rgba(121,245,255,.08),transparent 24%),
+radial-gradient(circle at 14% 88%,rgba(216,255,159,.06),transparent 26%),
+linear-gradient(150deg,#0c1410,#07100d)!important}
+.brand-line{box-shadow:0 0 36px rgba(121,245,255,.10)}
+.brand-line div{text-shadow:0 1px 0 rgba(255,255,255,.18)}
+.graf-hero,.atlas-city-hero{box-shadow:inset 0 -100px 120px rgba(0,0,0,.34)}
+.graf-hero:after,.atlas-city-hero:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(120deg,transparent 0 46%,rgba(121,245,255,.05) 50%,transparent 54%);animation:aiScan 9s linear infinite}
+@keyframes aiScan{0%{transform:translateX(-45%)}100%{transform:translateX(45%)}}
+.metro-course .metro-hero-art:after{content:"";position:absolute;width:420px;height:420px;right:-70px;top:40px;border:1px solid rgba(121,245,255,.09);border-radius:50%;box-shadow:0 0 0 70px rgba(216,255,159,.018),0 0 0 140px rgba(121,245,255,.012);animation:aiOrbit 22s linear infinite}
+@media(max-width:760px){
+ .ai-hud-orbit-a{width:320px;height:320px;right:-180px;top:110px}
+ .ai-hud-orbit-b{width:210px;height:210px;right:-105px;top:165px}
+ .ai-disc-flight{width:70vw;right:-12vw;top:43%}
+ .ai-hud-label{right:14px;bottom:74px}
+ .ai-hud-coords{right:12px;top:84px}
+ .atlas-hero-image{animation:aiHeroBreath 18s ease-in-out infinite alternate!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .atlas-hero-image,.ai-hud-orbit,.ai-disc-flight span,.graf-hero:after,.atlas-city-hero:after,.metro-course .metro-hero-art:after{animation:none!important}
+}
