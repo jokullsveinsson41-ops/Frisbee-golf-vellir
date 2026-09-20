@@ -997,3 +997,61 @@ linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));display:fl
   .graf-action-copy{left:13px;right:13px;bottom:13px}.graf-action-icon{left:13px;top:13px}
   .graf-action-copy p{display:none}
 }
+
+
+/* Grafarholt built-in graphics — no external-image dependency for info/gallery cards */
+.graf-action-info .graf-action-shade,.graf-action-gallery .graf-action-shade{
+  background:linear-gradient(0deg,rgba(4,9,6,.86),rgba(4,9,6,.18) 62%,rgba(4,9,6,.04))
+}
+.info-visual{
+  background:
+  radial-gradient(circle at 28% 22%,rgba(214,226,168,.18),transparent 25%),
+  linear-gradient(145deg,#16231a,#0b120d 72%);
+}
+.info-visual:before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:32px 32px
+}
+.info-ring{position:absolute;border:1px solid rgba(214,226,168,.15);border-radius:50%}
+.info-ring-a{width:160px;height:160px;right:-34px;top:-26px}
+.info-ring-b{width:96px;height:96px;right:0;top:9px}
+.info-panel{position:absolute;left:18px;top:56px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(10px)}
+.info-panel-b{left:94px;top:88px}
+.info-panel span,.info-panel small{display:block}.info-panel span{font:800 16px/1 "Manrope"}.info-panel small{font-size:7px;letter-spacing:.12em;color:rgba(255,255,255,.42);margin-top:4px}
+.info-visual-icon{position:absolute;right:22px;bottom:48px;width:64px;height:64px;fill:none;stroke:#d6e2a8;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.88;filter:drop-shadow(0 10px 22px rgba(0,0,0,.22))}
+
+.gallery-visual{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:5px;padding:14px;
+  background:linear-gradient(145deg,#142019,#0a100c)
+}
+.gallery-visual:before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 72% 18%,rgba(214,226,168,.13),transparent 24%)
+}
+.gallery-tile{position:relative;z-index:1;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:
+linear-gradient(145deg,rgba(214,226,168,.09),rgba(255,255,255,.03));display:grid;place-items:center;overflow:hidden}
+.gallery-tile-b{transform:translateY(18px)}
+.gallery-tile svg{width:70%;fill:none;stroke:#dce7b0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+.gallery-count-mark{position:absolute;z-index:2;right:18px;top:18px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#d6e2a8;color:#111812;font:800 13px/1 "Manrope";box-shadow:0 10px 30px rgba(0,0,0,.24)}
+
+.graf-info-graphic{
+  background:
+  radial-gradient(circle at 78% 22%,rgba(214,226,168,.16),transparent 24%),
+  linear-gradient(145deg,#18251c,#0c130e)!important
+}
+.graf-info-graphic:before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:34px 34px
+}
+.info-hero-art{position:absolute;inset:0;display:grid;place-items:center}
+.info-hero-art svg{width:78px;height:78px;fill:none;stroke:#d6e2a8;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.9}
+.info-hero-orbit{position:absolute;width:150px;height:150px;border-radius:50%;border:1px solid rgba(214,226,168,.14);box-shadow:0 0 0 26px rgba(214,226,168,.03)}
+.graf-info-graphic>div:last-child{position:absolute!important;left:14px;bottom:13px;z-index:3}
+
+@media(max-width:430px){
+  .info-panel{top:48px;left:12px}.info-panel-b{left:80px;top:76px}
+  .info-visual-icon{right:14px;bottom:42px;width:54px;height:54px}
+  .gallery-visual{padding:10px}.gallery-count-mark{right:12px;top:12px}
+}
