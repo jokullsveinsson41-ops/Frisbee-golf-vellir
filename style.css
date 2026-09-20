@@ -1138,3 +1138,9 @@ repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 33%)
   .metro-course .graf-hero h1{font-size:clamp(44px,13vw,68px);overflow-wrap:anywhere}
   .metro-holes-visual>strong{font-size:44px}
 }
+
+
+.nearby-course{margin-top:10px;padding:18px 20px;border-radius:20px;border:1px solid rgba(255,255,255,.07);background:linear-gradient(145deg,rgba(214,226,168,.06),rgba(255,255,255,.02));display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nearby-course h3{font:800 26px/1 "Manrope";letter-spacing:-.04em;margin:6px 0 7px}
+.nearby-course p{max-width:700px;margin:0;color:rgba(238,244,239,.46);font-size:11px}
+@media(max-width:700px){.nearby-course{align-items:flex-start;flex-direction:column}.nearby-course .button{width:100%}}
