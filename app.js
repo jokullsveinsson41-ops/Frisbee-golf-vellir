@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.documentElement.classList.add("motion-ready");
 
   const staged=[...document.querySelectorAll(
-    ".atlas-copy > *, .quick-panel > *, .atlas-section-head > *, .atlas-card, .featured-atlas-card > *, .reyk-card, .graf-command-head > *, .graf-action, .graf-stats > span, .future-grid article, .nearby-course > *"
+    ".atlas-copy > *, .quick-panel > *, .atlas-section-head > *, .atlas-card, .featured-atlas-card > *, .reyk-card, .graf-command-head > *, .graf-action, .graf-stats > span, .future-grid article, .nearby-course > *, .ed-hero-copy > *, .ed-intro > *, .ed-section-head > *, .ed-project, .ed-feature-copy > *, .reyk-editorial-copy > *, .reyk-row, .graf-ed-copy > *, .graf-ed-intro > *, .graf-ed-action"
   )];
 
   const revealObserver=new IntersectionObserver(entries=>{
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     revealObserver.observe(el);
   });
 
-  const hero=document.querySelector(".atlas-hero-image,.graf-hero>img,.atlas-city-hero>img");
+  const hero=document.querySelector(".atlas-hero-image,.graf-hero>img,.atlas-city-hero>img,.ed-hero>img,.graf-ed-hero>img,.reyk-editorial-image>img");
   if(hero){
     let ticking=false;
     const move=()=>{
