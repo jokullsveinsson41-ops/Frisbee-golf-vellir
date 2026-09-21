@@ -373,7 +373,8 @@ document.addEventListener("DOMContentLoaded",()=>{
       ["Fossvogsdalur",64.11675098474049,-21.885569080704233,"reykjavik.html",0,0],
       ["Kjalarnes",64.2374064881233,-21.828555881514774,"kjalarnes.html",0,0],
       ["Fella- og Hólahverfi",64.10284,-21.809904,"fellahverfi.html",0,0],
-      ["Seljahverfi",64.099381,-21.845597,"seljahverfi.html",0,0]
+      ["Seljahverfi",64.099381,-21.845597,"seljahverfi.html",0,0],
+      ["Guðmundarlundur",64.07421433851206,-21.826335246506932,"gudmundaras.html",0,0]
     ],
     akureyri:[
       ["Hamrar",65.64882895286553,-18.104909669205227,"hamrar.html",0,0],
