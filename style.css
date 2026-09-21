@@ -2067,3 +2067,126 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     transition:none!important;
   }
 }
+
+
+/* ===== OPTION STORY ANIMATIONS — each card explains itself visually ===== */
+
+/* LEIÐBEININGAR: clear start → route → destination. */
+.metro-course .map-visual{
+  background:
+    radial-gradient(circle at 25% 62%,#dfffaf 0 4px,rgba(223,255,175,.18) 5px 10px,transparent 11px),
+    radial-gradient(circle at 77% 34%,#79f5ff 0 4px,rgba(121,245,255,.18) 5px 10px,transparent 11px),
+    linear-gradient(28deg,transparent 0 34%,rgba(121,245,255,.11) 35% 36%,transparent 37% 100%),
+    linear-gradient(145deg,rgba(216,255,159,.08),rgba(121,245,255,.035)),
+    #0b1714!important;
+}
+.metro-course .map-visual:before{
+  animation:optionRouteGlow 2.8s ease-in-out infinite!important;
+}
+.metro-course .graf-action-map .graf-action-icon:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#79f5ff;
+  box-shadow:0 0 0 4px rgba(121,245,255,.08),0 0 12px rgba(121,245,255,.35);
+  animation:optionRouteMarker 2.8s ease-in-out infinite;
+}
+
+/* ALLAR BRAUTIR: a start marker and a disc/progress point crossing the score grid. */
+.metro-course .score-lines:before{
+  content:"";
+  position:absolute;
+  left:-7px;
+  top:50%;
+  width:7px;
+  height:7px;
+  margin-top:-3.5px;
+  border-radius:50%;
+  background:#dfffaf;
+  box-shadow:0 0 0 4px rgba(223,255,175,.07);
+}
+.metro-course .score-lines:after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:50%;
+  width:8px;
+  height:4px;
+  margin-top:-2px;
+  border-radius:50%;
+  background:#79f5ff;
+  box-shadow:0 0 12px rgba(121,245,255,.40);
+  animation:optionHoleFlight 3.2s cubic-bezier(.4,0,.2,1) infinite;
+}
+
+/* VITA MEIRA: data pulse travels from the center into the rings. */
+.metro-course .info-visual:after{
+  content:"";
+  position:absolute;
+  right:34px;
+  top:46px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#dfffaf;
+  box-shadow:0 0 0 0 rgba(216,255,159,.20);
+  animation:optionInfoPulse 2.7s ease-out infinite;
+}
+
+/* SAGA VALLARINS: timeline has a tracer that moves from first point to last. */
+.metro-course .history-line{
+  overflow:visible!important;
+}
+.metro-course .history-line:after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:50%;
+  width:8px;
+  height:8px;
+  margin-top:-4px;
+  border-radius:50%;
+  background:#79f5ff;
+  box-shadow:0 0 12px rgba(121,245,255,.38);
+  animation:optionTimelineTracer 3.6s ease-in-out infinite;
+}
+
+@keyframes optionRouteGlow{
+  0%,100%{opacity:.42;filter:drop-shadow(0 0 0 rgba(121,245,255,0))}
+  50%{opacity:.9;filter:drop-shadow(0 0 7px rgba(121,245,255,.24))}
+}
+@keyframes optionRouteMarker{
+  0%,100%{transform:translate(0,0) scale(.8);opacity:.45}
+  50%{transform:translate(5px,-3px) scale(1.15);opacity:1}
+}
+@keyframes optionHoleFlight{
+  0%{left:0;transform:translateY(5px) rotate(-8deg);opacity:0}
+  12%{opacity:1}
+  52%{transform:translateY(-6px) rotate(2deg);opacity:1}
+  88%{opacity:1}
+  100%{left:calc(100% - 8px);transform:translateY(1px) rotate(8deg);opacity:0}
+}
+@keyframes optionInfoPulse{
+  0%{transform:scale(.65);opacity:0;box-shadow:0 0 0 0 rgba(216,255,159,.22)}
+  28%{opacity:1}
+  100%{transform:scale(1.2);opacity:0;box-shadow:0 0 0 24px rgba(216,255,159,0)}
+}
+@keyframes optionTimelineTracer{
+  0%{left:0;opacity:0;transform:scale(.8)}
+  10%{opacity:1}
+  50%{opacity:1;transform:scale(1.1)}
+  90%{opacity:1}
+  100%{left:calc(100% - 8px);opacity:0;transform:scale(.8)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .metro-course .map-visual:before,
+  .metro-course .graf-action-map .graf-action-icon:after,
+  .metro-course .score-lines:after,
+  .metro-course .info-visual:after,
+  .metro-course .history-line:after{
+    animation:none!important;
+  }
+}
