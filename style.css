@@ -3144,3 +3144,299 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     min-height:410px;
   }
 }
+
+
+/* ===== SATELLITE ATLAS MAP V4 — FUTURISTIC NATIVE MAP ===== */
+.atlas-slippy-map{
+  position:relative;
+  width:100%;
+  height:min(68vh,720px);
+  min-height:440px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 48%,rgba(121,245,255,.045),transparent 34%),
+    #06100c;
+  cursor:grab;
+  touch-action:none;
+  outline:none;
+  isolation:isolate;
+}
+.atlas-slippy-map.dragging{cursor:grabbing}
+.atlas-slippy-map:focus-visible{
+  box-shadow:inset 0 0 0 2px rgba(216,255,159,.28);
+}
+.atlas-map-tiles,
+.atlas-map-markers,
+.atlas-map-gridfx{
+  position:absolute;
+  inset:0;
+}
+.atlas-map-tiles{
+  z-index:1;
+  overflow:hidden;
+  background:#07100d;
+}
+.atlas-map-tile{
+  position:absolute;
+  width:256px;
+  height:256px;
+  object-fit:cover;
+  user-select:none;
+  -webkit-user-drag:none;
+  filter:
+    saturate(.72)
+    contrast(1.14)
+    brightness(.48)
+    hue-rotate(8deg);
+}
+.atlas-map-gridfx{
+  z-index:2;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(121,245,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(216,255,159,.035) 1px,transparent 1px),
+    radial-gradient(circle at 50% 50%,transparent 0 54%,rgba(4,12,8,.25) 100%);
+  background-size:34px 34px,34px 34px,100% 100%;
+  mix-blend-mode:screen;
+}
+.atlas-map-gridfx:before,
+.atlas-map-gridfx:after{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(141,255,189,.07);
+  border-radius:18px;
+}
+.atlas-map-gridfx:after{
+  inset:30px;
+  border-color:rgba(121,245,255,.045);
+  border-style:dashed;
+}
+.atlas-map-markers{
+  z-index:5;
+  pointer-events:none;
+}
+.atlas-geo-city,
+.atlas-geo-course{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  pointer-events:auto;
+  border:0;
+  text-decoration:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.atlas-geo-city{
+  min-width:126px;
+  min-height:46px;
+  padding:0 16px 0 36px;
+  border-radius:999px;
+  border:1px solid rgba(216,255,159,.20);
+  background:rgba(4,12,8,.78);
+  backdrop-filter:blur(12px) saturate(1.1);
+  color:#f3f8f4;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.35),
+    inset 0 0 0 1px rgba(121,245,255,.025);
+  font:800 10px/1 "Manrope";
+  letter-spacing:.02em;
+  cursor:pointer;
+}
+.atlas-geo-city>i{
+  position:absolute;
+  left:15px;
+  top:50%;
+  width:9px;
+  height:9px;
+  margin-top:-4.5px;
+  border-radius:50%;
+  background:#dfffaf;
+  box-shadow:
+    0 0 0 4px rgba(216,255,159,.07),
+    0 0 14px rgba(216,255,159,.55);
+}
+.atlas-city-radar{
+  position:absolute;
+  left:19.5px;
+  top:50%;
+  width:26px;
+  height:26px;
+  margin:-13px 0 0 -13px;
+  border-radius:50%;
+  border:1px solid rgba(121,245,255,.20);
+  animation:atlasRadar 2.4s ease-out infinite;
+}
+.atlas-geo-course{
+  width:34px;
+  height:44px;
+  color:#fff;
+}
+.atlas-geo-course>b{
+  position:absolute;
+  left:50%;
+  top:34px;
+  transform:translateX(-50%);
+  min-width:max-content;
+  padding:5px 7px;
+  border-radius:8px;
+  border:1px solid rgba(141,255,189,.08);
+  background:rgba(5,12,9,.74);
+  backdrop-filter:blur(8px);
+  color:rgba(245,250,246,.78);
+  font:800 7px/1 "Manrope";
+  white-space:nowrap;
+  opacity:0;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.atlas-geo-course:hover>b,
+.atlas-geo-course:focus-visible>b{
+  opacity:1;
+  transform:translate(-50%,-2px);
+}
+.atlas-geo-dot{
+  position:absolute;
+  left:8px;
+  top:6px;
+  width:18px;
+  height:18px;
+  border-radius:50% 50% 50% 4px;
+  transform:rotate(-45deg);
+  background:linear-gradient(145deg,#e7ffbc,#79f5ff);
+  box-shadow:
+    0 0 0 4px rgba(5,12,9,.65),
+    0 0 18px rgba(121,245,255,.26);
+}
+.atlas-geo-dot:after{
+  content:"";
+  position:absolute;
+  left:6px;
+  top:6px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#07100d;
+}
+.atlas-geo-pulse{
+  position:absolute;
+  left:17px;
+  top:15px;
+  width:22px;
+  height:22px;
+  margin:-11px;
+  border-radius:50%;
+  border:1px solid rgba(216,255,159,.28);
+  animation:atlasCoursePulse 2.2s ease-out infinite;
+}
+.atlas-map-controls{
+  position:absolute;
+  right:14px;
+  top:14px;
+  z-index:8;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.atlas-map-controls button{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  border:1px solid rgba(141,255,189,.12);
+  background:rgba(4,12,8,.78);
+  backdrop-filter:blur(10px);
+  color:#e9ffd0;
+  font:800 18px/1 "Manrope";
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.20);
+}
+.atlas-map-controls button:active{transform:scale(.95)}
+.atlas-map-coords{
+  position:absolute;
+  left:14px;
+  top:14px;
+  z-index:8;
+  padding:8px 10px;
+  border:1px solid rgba(141,255,189,.09);
+  border-radius:10px;
+  background:rgba(4,12,8,.68);
+  backdrop-filter:blur(10px);
+  color:rgba(236,246,239,.48);
+  font:800 7px/1 "Manrope";
+  letter-spacing:.10em;
+}
+.atlas-map-stage:after{
+  content:"LIVE SATELLITE / DISC GOLF ATLAS";
+  position:absolute;
+  right:16px;
+  bottom:14px;
+  z-index:7;
+  padding:7px 9px;
+  border-radius:999px;
+  border:1px solid rgba(121,245,255,.08);
+  background:rgba(4,12,8,.62);
+  color:rgba(216,255,159,.52);
+  font:800 6.5px/1 "Manrope";
+  letter-spacing:.13em;
+  pointer-events:none;
+}
+.atlas-map-toolbar{
+  background:
+    linear-gradient(90deg,rgba(216,255,159,.025),transparent 35%),
+    rgba(5,12,9,.96);
+}
+.atlas-map-toolbar button{
+  min-height:40px;
+  border-color:rgba(141,255,189,.10);
+}
+.atlas-map-toolbar button.active{
+  box-shadow:inset 0 0 0 1px rgba(121,245,255,.04),0 0 20px rgba(121,245,255,.035);
+}
+.atlas-map-foot{
+  background:#07100d;
+}
+@keyframes atlasRadar{
+  0%{transform:scale(.55);opacity:.8}
+  100%{transform:scale(1.55);opacity:0}
+}
+@keyframes atlasCoursePulse{
+  0%{transform:scale(.5);opacity:.8}
+  100%{transform:scale(1.6);opacity:0}
+}
+@media(max-width:620px){
+  .atlas-slippy-map{
+    height:63vh;
+    min-height:430px;
+  }
+  .atlas-geo-city{
+    min-width:110px;
+    min-height:42px;
+    padding-left:33px;
+    font-size:8.5px;
+  }
+  .atlas-map-controls{
+    right:10px;
+    top:10px;
+  }
+  .atlas-map-controls button{
+    width:40px;
+    height:40px;
+  }
+  .atlas-map-coords{
+    left:10px;
+    top:10px;
+  }
+  .atlas-geo-course>b{
+    opacity:1;
+    top:31px;
+    font-size:6px;
+    max-width:120px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .atlas-city-radar,
+  .atlas-geo-pulse{
+    animation:none!important;
+  }
+}
