@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 
-/* ===== SATELLITE COURSE MAP V5 — smooth touch panning + complete site markers ===== */
+/* ===== SATELLITE COURSE MAP V6 — 120Hz-ready touch panning + fast loading ===== */
 document.addEventListener("DOMContentLoaded",()=>{
   const dialog=document.getElementById("atlasMapDialog");
   const openBtn=document.querySelector("[data-map-open]");
@@ -366,11 +366,11 @@ document.addEventListener("DOMContentLoaded",()=>{
   const courses={
     reykjavik:[
       ["Grafarholt",64.12268495446106,-21.750312857329845,"grafarholt.html",0,0],
-      ["Grafarholt púttvöllur",64.12268495446106,-21.750312857329845,"reykjavik.html",20,-18],
-      ["Grafarvogur / Gufunes",64.143354,-21.809444,"reykjavik.html",0,0],
+      ["Grafarholt púttvöllur",64.12268495446106,-21.750312857329845,"grafarholt-putt.html",20,-18],
+      ["Grafarvogur / Gufunes",64.143354,-21.809444,"gufunes.html",0,0],
       ["Klambratún",64.138521,-21.915918,"klambratun.html",0,0],
       ["Laugardalur",64.139246,-21.865271,"laugardalur.html",0,0],
-      ["Fossvogsdalur",64.11675098474049,-21.885569080704233,"reykjavik.html",0,0],
+      ["Fossvogsdalur",64.11675098474049,-21.885569080704233,"fossvogsdalur.html",0,0],
       ["Kjalarnes",64.2374064881233,-21.828555881514774,"kjalarnes.html",0,0],
       ["Fella- og Hólahverfi",64.10284,-21.809904,"fellahverfi.html",0,0],
       ["Seljahverfi",64.099381,-21.845597,"seljahverfi.html",0,0],
@@ -422,6 +422,25 @@ document.addEventListener("DOMContentLoaded",()=>{
     regionBtns.forEach(btn=>btn.classList.toggle("active",btn.dataset.mapRegion===name));
   };
 
+  const preloadRegion=(name)=>{
+    const r=regions[name];
+    if(!r)return;
+    const p=project(r.lat,r.lon,r.z);
+    const cx=Math.floor(p.x/TILE);
+    const cy=Math.floor(p.y/TILE);
+    const max=Math.pow(2,r.z);
+    for(let y=cy-1;y<=cy+1;y++){
+      if(y<0||y>=max)continue;
+      for(let x=cx-1;x<=cx+1;x++){
+        const wrapped=((x%max)+max)%max;
+        const img=new Image();
+        img.decoding="async";
+        img.fetchPriority=name==="iceland"?"high":"low";
+        img.src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/"+r.z+"/"+y+"/"+wrapped;
+      }
+    }
+  };
+
   const resetSceneTransform=()=>{
     tilesEl.style.transform="";
     markersEl.style.transform="";
@@ -437,7 +456,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     const top=center.y-h/2;
 
     /* Extra tile padding keeps fast finger swipes from exposing blank edges. */
-    const pad=3;
+    const pad=1;
     const startX=Math.floor(left/TILE)-pad;
     const endX=Math.floor((left+w)/TILE)+pad;
     const startY=Math.floor(top/TILE)-pad;
@@ -542,6 +561,13 @@ document.addEventListener("DOMContentLoaded",()=>{
     renderTiles();
   };
 
+  /* Warm the first satellite view before the user opens the map. */
+  if("requestIdleCallback" in window){
+    requestIdleCallback(()=>preloadRegion("iceland"),{timeout:700});
+  }else{
+    setTimeout(()=>preloadRegion("iceland"),180);
+  }
+
   openBtn.addEventListener("click",()=>{
     dialog.showModal();
     requestAnimationFrame(()=>{
@@ -567,6 +593,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     lastMove={x:e.clientX,y:e.clientY,t:performance.now()};
     mapEl.setPointerCapture?.(e.pointerId);
     mapEl.classList.add("dragging");
+    document.documentElement.classList.add("map-is-dragging");
   });
 
   mapEl.addEventListener("pointermove",e=>{
@@ -589,8 +616,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     dragging=false;
     mapEl.releasePointerCapture?.(e.pointerId);
     mapEl.classList.remove("dragging");
+    document.documentElement.classList.remove("map-is-dragging");
 
-    /* Small inertia gives iPhone swipes a natural, map-like finish. */
+    /* Small inertia gives high-refresh phones a natural map-like finish. */
     const speed=Math.hypot(velocity.x,velocity.y);
     const inertia=speed>.12?Math.min(180,speed*95):0;
     const extraX=velocity.x*inertia;
