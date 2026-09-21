@@ -3119,3 +3119,28 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     font-size:8px;
   }
 }
+
+
+/* ===== MAP V3 IFRAME FIX ===== */
+.atlas-map-frame{
+  width:100%;
+  height:min(66vh,680px);
+  min-height:430px;
+  border:0;
+  display:block;
+  background:#08110d;
+  filter:saturate(.92) contrast(1.03) brightness(.88);
+}
+.atlas-static-map{
+  position:relative;
+}
+.atlas-static-map>img,
+.atlas-map-loading{
+  display:none!important;
+}
+@media(max-width:620px){
+  .atlas-map-frame{
+    height:62vh;
+    min-height:410px;
+  }
+}
