@@ -2290,3 +2290,436 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     opacity:1!important;
   }
 }
+
+
+/* ===== FRISBI AI HOMEPAGE ASSISTANT ===== */
+.sr-only{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+.frisbi-ai-section{
+  position:relative;
+  padding:86px 0;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(121,245,255,.07),transparent 28%),
+    radial-gradient(circle at 85% 72%,rgba(216,255,159,.06),transparent 26%),
+    linear-gradient(180deg,#07100d,#09130f);
+  border-top:1px solid rgba(141,255,189,.06);
+  border-bottom:1px solid rgba(141,255,189,.06);
+}
+.frisbi-ai-section:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(121,245,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(141,255,189,.025) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,transparent,black 20%,black 80%,transparent);
+}
+.frisbi-ai-wrap{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);
+  gap:36px;
+  align-items:stretch;
+}
+.frisbi-ai-intro{
+  position:relative;
+  min-height:520px;
+  padding:34px;
+  border:1px solid rgba(141,255,189,.09);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(121,245,255,.06),transparent 28%),
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+  overflow:hidden;
+}
+.frisbi-ai-intro h2{
+  max-width:650px;
+  margin:10px 0 16px;
+  font:800 clamp(44px,6vw,78px)/.92 "Manrope",sans-serif;
+  letter-spacing:-.065em;
+  color:#f4f8f5;
+}
+.frisbi-ai-intro p{
+  max-width:510px;
+  margin:0;
+  color:rgba(239,248,241,.58);
+  font-size:14px;
+  line-height:1.65;
+}
+.frisbi-ai-pulse{
+  position:absolute;
+  left:50%;
+  bottom:70px;
+  width:260px;
+  height:260px;
+  transform:translateX(-50%);
+}
+.ai-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:42px;
+  height:42px;
+  margin:-21px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#f3ffd4,#b8ffb2 36%,#79f5ff 100%);
+  box-shadow:0 0 38px rgba(121,245,255,.28),0 0 84px rgba(216,255,159,.10);
+  animation:frisbiCorePulse 3.2s ease-in-out infinite;
+}
+.ai-ring{
+  position:absolute;
+  left:50%;
+  top:50%;
+  border:1px solid rgba(141,255,189,.16);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.ai-ring-one{width:150px;height:150px;animation:frisbiOrbit 12s linear infinite}
+.ai-ring-two{width:230px;height:230px;border-color:rgba(121,245,255,.11);animation:frisbiOrbit 18s linear reverse infinite}
+.ai-orbit-dot{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:8px;
+  height:8px;
+  margin:-4px;
+  border-radius:50%;
+  background:#dfffaf;
+  box-shadow:0 0 14px rgba(216,255,159,.5);
+  animation:frisbiDotOrbit 5.8s linear infinite;
+}
+.frisbi-ai-status{
+  position:absolute;
+  left:34px;
+  bottom:26px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font:800 8px/1 "Manrope";
+  letter-spacing:.14em;
+  color:rgba(236,246,239,.42);
+}
+.frisbi-ai-status>span{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#bfff92;
+  box-shadow:0 0 12px rgba(191,255,146,.42);
+}
+
+.frisbi-chat{
+  display:flex;
+  flex-direction:column;
+  min-height:520px;
+  border:1px solid rgba(141,255,189,.10);
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(10,20,15,.95),rgba(7,14,11,.98));
+  box-shadow:0 30px 80px rgba(0,0,0,.20);
+  overflow:hidden;
+}
+.frisbi-chat-top{
+  min-height:74px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:15px 18px;
+  border-bottom:1px solid rgba(141,255,189,.07);
+  background:rgba(255,255,255,.018);
+}
+.frisbi-chat-top>div:first-child{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.frisbi-chat-top b,
+.frisbi-chat-top small{display:block}
+.frisbi-chat-top b{
+  font:800 12px/1 "Manrope";
+  letter-spacing:.05em;
+  color:#f1f7f2;
+}
+.frisbi-chat-top small{
+  margin-top:5px;
+  color:rgba(236,246,239,.42);
+  font-size:9px;
+}
+.frisbi-bot-mark{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:linear-gradient(145deg,rgba(216,255,159,.12),rgba(121,245,255,.08));
+  border:1px solid rgba(216,255,159,.13);
+  color:#e5ffc1;
+  font:800 10px/1 "Manrope";
+  letter-spacing:.08em;
+}
+.frisbi-live{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 9px;
+  border-radius:999px;
+  background:rgba(216,255,159,.055);
+  border:1px solid rgba(216,255,159,.08);
+  color:#dfffaf;
+  font:800 7px/1 "Manrope";
+  letter-spacing:.14em;
+}
+.frisbi-live i{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#bfff92;
+  box-shadow:0 0 10px rgba(191,255,146,.5);
+}
+.frisbi-chat-log{
+  flex:1;
+  min-height:250px;
+  max-height:320px;
+  overflow:auto;
+  padding:20px 18px 8px;
+  scroll-behavior:smooth;
+}
+.frisbi-chat-log::-webkit-scrollbar{width:6px}
+.frisbi-chat-log::-webkit-scrollbar-thumb{
+  background:rgba(141,255,189,.10);
+  border-radius:999px;
+}
+.frisbi-msg{
+  width:min(88%,560px);
+  margin:0 0 12px;
+  padding:12px 14px;
+  border-radius:16px;
+  animation:frisbiMsgIn .24s cubic-bezier(.2,.8,.2,1) both;
+}
+.frisbi-msg.bot{
+  margin-right:auto;
+  background:rgba(255,255,255,.032);
+  border:1px solid rgba(141,255,189,.07);
+  border-bottom-left-radius:6px;
+}
+.frisbi-msg.user{
+  margin-left:auto;
+  background:linear-gradient(145deg,rgba(216,255,159,.12),rgba(121,245,255,.07));
+  border:1px solid rgba(216,255,159,.10);
+  border-bottom-right-radius:6px;
+}
+.frisbi-msg-label{
+  display:block;
+  margin-bottom:6px;
+  color:#9fbe83;
+  font:800 7px/1 "Manrope";
+  letter-spacing:.14em;
+}
+.frisbi-msg.user .frisbi-msg-label{
+  color:#a9d7ce;
+}
+.frisbi-msg p{
+  margin:0;
+  color:rgba(241,248,243,.78);
+  font-size:12px;
+  line-height:1.55;
+}
+.typing-dots{
+  display:flex;
+  gap:5px;
+  padding:4px 1px 2px;
+}
+.typing-dots i{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#bfff92;
+  opacity:.35;
+  animation:frisbiTyping 1s ease-in-out infinite;
+}
+.typing-dots i:nth-child(2){animation-delay:.13s}
+.typing-dots i:nth-child(3){animation-delay:.26s}
+
+.frisbi-ai-suggestions{
+  display:flex;
+  gap:7px;
+  padding:8px 18px 12px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.frisbi-ai-suggestions::-webkit-scrollbar{display:none}
+.frisbi-ai-suggestions button{
+  flex:0 0 auto;
+  border:1px solid rgba(141,255,189,.08);
+  border-radius:999px;
+  padding:8px 10px;
+  background:rgba(255,255,255,.025);
+  color:rgba(236,246,239,.60);
+  font:700 8px/1 "Manrope";
+  cursor:pointer;
+  transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease;
+}
+.frisbi-ai-suggestions button:hover{
+  transform:translateY(-1px);
+  background:rgba(216,255,159,.06);
+  border-color:rgba(216,255,159,.12);
+  color:#e8ffd0;
+}
+.frisbi-ai-form{
+  display:grid;
+  grid-template-columns:1fr 46px;
+  gap:8px;
+  padding:0 18px 10px;
+}
+.frisbi-ai-form input{
+  min-width:0;
+  height:46px;
+  border:1px solid rgba(141,255,189,.10);
+  border-radius:14px;
+  outline:0;
+  padding:0 14px;
+  background:#08110d;
+  color:#f3f8f4;
+  font:600 12px/1 "Manrope";
+  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.frisbi-ai-form input::placeholder{color:rgba(236,246,239,.30)}
+.frisbi-ai-form input:focus{
+  border-color:rgba(141,255,189,.25);
+  box-shadow:0 0 0 3px rgba(121,245,255,.045);
+  background:#0a1510;
+}
+.frisbi-ai-form button{
+  width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(216,255,159,.12);
+  border-radius:14px;
+  background:linear-gradient(145deg,#dfffb0,#9ef1d9);
+  color:#07100d;
+  cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.frisbi-ai-form button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 24px rgba(121,245,255,.11);
+}
+.frisbi-ai-form button:active{transform:scale(.96)}
+.frisbi-ai-form button svg{
+  width:19px;
+  height:19px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.frisbi-ai-note{
+  padding:0 18px 15px;
+  color:rgba(236,246,239,.28);
+  font-size:8px;
+}
+
+@keyframes frisbiCorePulse{
+  0%,100%{transform:scale(1);filter:brightness(1)}
+  50%{transform:scale(1.08);filter:brightness(1.12)}
+}
+@keyframes frisbiOrbit{
+  from{transform:translate(-50%,-50%) rotate(0deg)}
+  to{transform:translate(-50%,-50%) rotate(360deg)}
+}
+@keyframes frisbiDotOrbit{
+  from{transform:rotate(0deg) translateX(96px) rotate(0deg)}
+  to{transform:rotate(360deg) translateX(96px) rotate(-360deg)}
+}
+@keyframes frisbiMsgIn{
+  from{opacity:0;transform:translateY(7px) scale(.985)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes frisbiTyping{
+  0%,100%{transform:translateY(0);opacity:.28}
+  50%{transform:translateY(-3px);opacity:.9}
+}
+
+@media(max-width:900px){
+  .frisbi-ai-wrap{grid-template-columns:1fr}
+  .frisbi-ai-intro{min-height:360px}
+  .frisbi-ai-pulse{
+    width:200px;
+    height:200px;
+    right:18px;
+    left:auto;
+    bottom:42px;
+    transform:none;
+    opacity:.72;
+  }
+  .ai-ring-one{width:118px;height:118px}
+  .ai-ring-two{width:178px;height:178px}
+  .ai-orbit-dot{animation-name:frisbiDotOrbitMobile}
+  @keyframes frisbiDotOrbitMobile{
+    from{transform:rotate(0deg) translateX(72px) rotate(0deg)}
+    to{transform:rotate(360deg) translateX(72px) rotate(-360deg)}
+  }
+}
+@media(max-width:560px){
+  .frisbi-ai-section{padding:54px 0}
+  .frisbi-ai-wrap{gap:14px}
+  .frisbi-ai-intro{
+    min-height:300px;
+    padding:22px;
+    border-radius:20px;
+  }
+  .frisbi-ai-intro h2{
+    font-size:clamp(38px,13vw,56px);
+    max-width:88%;
+  }
+  .frisbi-ai-intro p{
+    max-width:72%;
+    font-size:11px;
+  }
+  .frisbi-ai-pulse{
+    width:150px;
+    height:150px;
+    right:-12px;
+    bottom:34px;
+    opacity:.58;
+  }
+  .ai-ring-one{width:92px;height:92px}
+  .ai-ring-two{width:138px;height:138px}
+  .ai-core{width:32px;height:32px;margin:-16px}
+  .frisbi-ai-status{left:22px;bottom:18px;font-size:6.5px}
+  .frisbi-chat{
+    min-height:480px;
+    border-radius:20px;
+  }
+  .frisbi-chat-log{
+    max-height:290px;
+    padding:16px 12px 6px;
+  }
+  .frisbi-msg{width:92%;padding:11px 12px}
+  .frisbi-msg p{font-size:11px}
+  .frisbi-ai-suggestions{padding:8px 12px 10px}
+  .frisbi-ai-form{padding:0 12px 8px;grid-template-columns:1fr 44px}
+  .frisbi-ai-form input,.frisbi-ai-form button{height:44px}
+  .frisbi-ai-form button{width:44px}
+  .frisbi-ai-note{padding:0 12px 13px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ai-core,.ai-ring,.ai-orbit-dot,.frisbi-msg,.typing-dots i{
+    animation:none!important;
+  }
+}
