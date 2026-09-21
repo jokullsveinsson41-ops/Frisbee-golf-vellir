@@ -1,4 +1,4 @@
-<!doctype html><html lang="is"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080d0a"><title>Frisbígolfvellir á Íslandi</title><meta name="description" content="Finndu frisbígolfvelli á Íslandi — borgir, vellir, kort, brautir og leiðbeiningar."><link rel="stylesheet" href="style-map8.css"><!-- restored-final --></head><body class="pro-site atlas-site">
+<!doctype html><html lang="is"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080d0a"><title>Frisbígolfvellir á Íslandi</title><meta name="description" content="Finndu frisbígolfvelli á Íslandi — borgir, vellir, kort, brautir og leiðbeiningar."><link rel="stylesheet" href="style-atlas9.css"><!-- restored-final --></head><body class="pro-site atlas-site">
 <header class="site-header atlas-header"><a class="brand" href="index.html"><span class="brand-mark">◉</span><span>FRISBÍGOLFVELLIR</span></a><div class="header-status"><span class="status-dot"></span> ICELAND • COURSE ATLAS</div><nav class="nav"><a href="#svæði">Svæði</a><a href="#frisbi-ai">Frisbí AI</a><a href="reykjavik.html">Reykjavík</a><a href="grafarholt.html">Grafarholt</a></nav></header>
 
 <main>
@@ -17,7 +17,7 @@
       <div class="eyebrow light">DISC GOLF • ICELAND</div>
       <h1>EAT<br>SLEEP<br>FRISBEE<br>REPEAT</h1>
       <p>Finndu völl. Skoðaðu brautir. Opnaðu leiðbeiningar. Farðu út að kasta.</p>
-      <div class="hero-actions"><a class="button button-light" href="#svæði">SKOÐA VELLI ↓</a><button class="button button-ghost atlas-map-button" type="button" data-map-open>OPNA KORT →</button></div>
+      <div class="hero-actions"><a class="button button-light" href="#svæði">SKOÐA VELLI ↓</a><button class="button button-ghost atlas-map-button" type="button" data-atlas-open>OPNA ATLAS →</button></div>
     </div>
 
   </div>
@@ -111,42 +111,60 @@
 <section class="brand-line"><div>EAT • SLEEP • FRISBEE • REPEAT</div></section>
 </main>
 
-<dialog class="atlas-map-dialog" id="atlasMapDialog">
-  <div class="atlas-map-shell">
-    <div class="atlas-map-head">
-      <div>
-        <div class="eyebrow light">SATELLITE • DISC GOLF ICELAND</div>
-        <h2>Kort yfir vellina.</h2>
-        <p>Veldu svæði til að þysja inn og sjá staðfesta velli sem eru komnir á síðuna.</p>
+<dialog class="atlas-selector-dialog" id="atlasSelectorDialog">
+  <div class="atlas-selector-shell">
+    <button class="atlas-selector-close" type="button" data-atlas-close aria-label="Loka atlas">×</button>
+
+    <div class="atlas-selector-copy">
+      <div class="atlas-selector-kicker"><span></span> DISC GOLF ATLAS • ICELAND</div>
+      <h2>VELDU<br>SVÆÐI.</h2>
+      <p>Þrjú svæði. Einn íslenskur frisbígolf-atlas. Veldu punkt og farðu beint inn á vellina.</p>
+      <div class="atlas-selector-meta">
+        <span><b>03</b><small>SVÆÐI</small></span>
+        <span><b>19+</b><small>VELLIR</small></span>
+        <span><b>IS</b><small>ICELAND</small></span>
       </div>
-      <button class="atlas-map-close" type="button" data-map-close aria-label="Loka korti">×</button>
+      <div class="atlas-selector-status"><i></i> DISC GOLF NETWORK • ONLINE</div>
     </div>
-    <div class="atlas-map-toolbar" role="group" aria-label="Veldu svæði">
-      <button type="button" data-map-region="iceland" class="active">Ísland</button>
-      <button type="button" data-map-region="reykjavik">Reykjavík</button>
-      <button type="button" data-map-region="akureyri">Akureyri</button>
-      <button type="button" data-map-region="egilsstadir">Egilsstaðir</button>
-    </div>
-    <div class="atlas-map-stage">
-      <div class="atlas-slippy-map" data-atlas-map tabindex="0" aria-label="Gervihnattakort af Íslandi og frisbígolfsvæðum">
-        <div class="atlas-map-base" data-map-base aria-hidden="true"></div><div class="atlas-map-tiles" data-map-tiles></div>
-        <div class="atlas-map-gridfx" aria-hidden="true"></div>
-        <div class="atlas-map-markers" data-map-markers></div>
-        <div class="atlas-map-controls">
-          <button type="button" data-map-zoom-in aria-label="Þysja inn">+</button>
-          <button type="button" data-map-zoom-out aria-label="Þysja út">−</button>
-          <button type="button" data-map-reset aria-label="Sýna Ísland">⌂</button>
-        </div>
-        <div class="atlas-map-coords" data-map-coords>64.9°N • 18.6°W</div>
+
+    <div class="atlas-island-panel">
+      <div class="atlas-aurora atlas-aurora-a"></div>
+      <div class="atlas-aurora atlas-aurora-b"></div>
+      <div class="atlas-island-grid"></div>
+      <div class="atlas-island-orbit atlas-island-orbit-a"></div>
+      <div class="atlas-island-orbit atlas-island-orbit-b"></div>
+
+      <div class="atlas-island-stage">
+        <div class="atlas-island-glow" aria-hidden="true"></div>
+        <img class="atlas-iceland-shape" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Iceland.svg" alt="Útlínur Íslands">
+
+        <a class="atlas-location atlas-location-capital" href="reykjavik.html" aria-label="Opna Höfuðborgarsvæðið">
+          <span class="atlas-location-rings"><i></i><i></i></span>
+          <span class="atlas-location-dot"></span>
+          <span class="atlas-location-card"><small>01 • SUÐVESTUR</small><b>Höfuðborgarsvæðið</b><em>9+ vellir →</em></span>
+        </a>
+
+        <a class="atlas-location atlas-location-akureyri" href="akureyri.html" aria-label="Opna Akureyri">
+          <span class="atlas-location-rings"><i></i><i></i></span>
+          <span class="atlas-location-dot"></span>
+          <span class="atlas-location-card"><small>02 • NORÐUR</small><b>Akureyri</b><em>7 vellir →</em></span>
+        </a>
+
+        <a class="atlas-location atlas-location-egilsstadir" href="egilsstadir.html" aria-label="Opna Egilsstaði">
+          <span class="atlas-location-rings"><i></i><i></i></span>
+          <span class="atlas-location-dot"></span>
+          <span class="atlas-location-card"><small>03 • AUSTUR</small><b>Egilsstaðir</b><em>3 vellir →</em></span>
+        </a>
+
+        <div class="atlas-island-scan" aria-hidden="true"></div>
       </div>
-      <div class="atlas-map-hint">Pikkaðu á svæði eða punkt • pikkaðu á völl til að opna síðuna</div>
-    </div>
-    <div class="atlas-map-foot">
-      <span><i></i> STAÐFESTIR PUNKTAR Á SÍÐUNNI</span>
-      <small>Satellite imagery © Esri og gagnaveitur þess.</small>
+
+      <div class="atlas-island-corner atlas-island-corner-tl">64°N</div>
+      <div class="atlas-island-corner atlas-island-corner-br">21°W • ICELAND</div>
+      <div class="atlas-selector-hint">VELDU LJÓSANDI PUNKT</div>
     </div>
   </div>
 </dialog>
 
 <footer class="atlas-footer shell"><div><strong>FRISBÍGOLFVELLIR</strong><span>DISC GOLF • ICELAND</span></div><div class="footer-links"><a href="reykjavik.html">Reykjavík</a><a href="akureyri.html">Akureyri</a><a href="egilsstadir.html">Egilsstaðir</a></div></footer>
-<script src="app-map8.js"></script></body></html>
+<script src="app-atlas9.js"></script></body></html>
