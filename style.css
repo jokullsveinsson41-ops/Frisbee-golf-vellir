@@ -2190,3 +2190,103 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     animation:none!important;
   }
 }
+
+
+/* ===== OPTION STORY V2 — cleaner cards + curved route animation ===== */
+
+/* Remove the little floating option badge/icon. */
+.metro-course .graf-action-icon{
+  display:none!important;
+}
+
+/* LEIÐBEININGAR: real start point → curved route → end point. */
+.metro-course .map-visual{
+  background:
+    linear-gradient(rgba(141,255,189,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(121,245,255,.04) 1px,transparent 1px),
+    radial-gradient(circle at 24% 72%,rgba(216,255,159,.08),transparent 20%),
+    radial-gradient(circle at 78% 26%,rgba(121,245,255,.07),transparent 18%),
+    #0b1714!important;
+  background-size:24px 24px,24px 24px,auto,auto,auto!important;
+  background-position:0 0,0 0,0 0,0 0,0 0!important;
+}
+.metro-course .map-visual:before{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  top:10px!important;
+  width:160px!important;
+  height:72px!important;
+  transform:translateX(-50%)!important;
+  opacity:.95!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:160px 72px!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 72'%3E%3Cpath d='M18 56 C42 12 72 69 98 35 C116 12 129 27 143 17' fill='none' stroke='%2379f5ff' stroke-opacity='.42' stroke-width='3' stroke-linecap='round' stroke-dasharray='5 6'/%3E%3Ccircle cx='18' cy='56' r='6' fill='%23dfffaf' fill-opacity='.95'/%3E%3Ccircle cx='18' cy='56' r='10' fill='none' stroke='%23dfffaf' stroke-opacity='.18' stroke-width='4'/%3E%3Ccircle cx='143' cy='17' r='6' fill='%2379f5ff' fill-opacity='.95'/%3E%3Ccircle cx='143' cy='17' r='10' fill='none' stroke='%2379f5ff' stroke-opacity='.18' stroke-width='4'/%3E%3C/svg%3E")!important;
+  animation:none!important;
+}
+.metro-course .map-visual:after{
+  content:""!important;
+  position:absolute!important;
+  left:calc(50% - 80px)!important;
+  top:10px!important;
+  width:9px!important;
+  height:9px!important;
+  border-radius:50%!important;
+  background:#f4fff0!important;
+  box-shadow:
+    0 0 0 3px rgba(216,255,159,.12),
+    0 0 14px rgba(121,245,255,.65)!important;
+  opacity:1!important;
+  offset-path:path("M18 56 C42 12 72 69 98 35 C116 12 129 27 143 17")!important;
+  offset-rotate:0deg!important;
+  animation:routeTraveler 3.6s cubic-bezier(.42,0,.2,1) infinite!important;
+  z-index:2!important;
+}
+@keyframes routeTraveler{
+  0%{offset-distance:0%;opacity:0;transform:scale(.75)}
+  8%{opacity:1}
+  48%{opacity:1;transform:scale(1.05)}
+  92%{opacity:1}
+  100%{offset-distance:100%;opacity:0;transform:scale(.75)}
+}
+
+/* Keep the art area balanced after removing the floating icon. */
+.metro-course .score-lines{
+  width:68%!important;
+  right:16%!important;
+}
+.metro-course .info-visual-icon{
+  right:50%!important;
+  transform:translateX(50%)!important;
+}
+.metro-course .history-line{
+  left:24px!important;
+  right:24px!important;
+}
+
+@media(max-width:430px){
+  .metro-course .map-visual:before{
+    top:4px!important;
+    width:142px!important;
+    height:64px!important;
+    background-size:142px 64px!important;
+  }
+  .metro-course .map-visual:after{
+    left:calc(50% - 71px)!important;
+    top:4px!important;
+    transform:scale(.9);
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .metro-course .map-visual:after{
+    animation:none!important;
+    offset-distance:0%!important;
+    opacity:1!important;
+  }
+}
