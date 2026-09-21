@@ -3440,3 +3440,20 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     animation:none!important;
   }
 }
+
+
+/* ===== MAP V5 SMOOTHNESS ===== */
+.atlas-map-tiles,
+.atlas-map-markers{
+  will-change:transform;
+  backface-visibility:hidden;
+  transform:translate3d(0,0,0);
+}
+.atlas-slippy-map{
+  overscroll-behavior:contain;
+  -webkit-user-select:none;
+  user-select:none;
+}
+.atlas-map-tile{
+  contain:strict;
+}
