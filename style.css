@@ -2723,3 +2723,13 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     animation:none!important;
   }
 }
+
+
+/* Homepage without quick select */
+.atlas-hero-inner.hero-no-quick{
+  grid-template-columns:minmax(0,1fr)!important;
+  max-width:1180px;
+}
+.atlas-hero-inner.hero-no-quick .atlas-copy{
+  max-width:900px;
+}
