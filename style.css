@@ -3000,3 +3000,122 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     gap:7px;
   }
 }
+
+
+/* ===== STATIC SATELLITE MAP FALLBACK ===== */
+.atlas-static-map{
+  position:relative;
+  width:100%;
+  min-height:430px;
+  background:
+    radial-gradient(circle at 50% 40%,rgba(121,245,255,.05),transparent 35%),
+    #08110d;
+  overflow:hidden;
+}
+.atlas-static-map>img{
+  width:100%;
+  height:min(66vh,680px);
+  min-height:430px;
+  object-fit:cover;
+  display:block;
+  opacity:0;
+  transform:scale(1.01);
+  transition:opacity .35s ease;
+}
+.atlas-static-map>img.ready{opacity:1}
+.atlas-map-overlay{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+}
+.atlas-static-city,
+.atlas-static-pin{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  pointer-events:auto;
+  cursor:pointer;
+  text-decoration:none;
+  color:#f3f8f4;
+}
+.atlas-static-city{
+  min-width:112px;
+  min-height:40px;
+  padding:0 12px 0 30px;
+  border-radius:999px;
+  border:1px solid rgba(216,255,159,.20);
+  background:rgba(5,12,9,.78);
+  backdrop-filter:blur(8px);
+  font:800 9px/1 "Manrope";
+  box-shadow:0 12px 30px rgba(0,0,0,.22);
+}
+.atlas-static-city:before{
+  content:"";
+  position:absolute;
+  left:12px;
+  top:50%;
+  width:8px;
+  height:8px;
+  margin-top:-4px;
+  border-radius:50%;
+  background:#dfffaf;
+  box-shadow:0 0 12px rgba(216,255,159,.5);
+}
+.atlas-static-pin{
+  width:30px;
+  height:38px;
+  border:0;
+  background:none;
+  font-size:0;
+}
+.atlas-static-pin:before{
+  content:"";
+  position:absolute;
+  left:6px;
+  top:1px;
+  width:18px;
+  height:18px;
+  border-radius:50% 50% 50% 4px;
+  transform:rotate(-45deg);
+  background:linear-gradient(145deg,#dfffaf,#79f5ff);
+  box-shadow:0 0 0 4px rgba(9,20,15,.55),0 0 18px rgba(121,245,255,.25);
+}
+.atlas-static-pin:after{
+  content:"";
+  position:absolute;
+  left:12px;
+  top:7px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#07100d;
+}
+.atlas-static-pin:hover:before,
+.atlas-static-city:hover{
+  filter:brightness(1.12);
+}
+.atlas-map-loading{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:grid;
+  place-items:center;
+  color:rgba(238,247,240,.55);
+  font:800 9px/1 "Manrope";
+  letter-spacing:.08em;
+  background:#08110d;
+}
+.atlas-map-loading[hidden]{display:none}
+@media(max-width:620px){
+  .atlas-static-map,
+  .atlas-static-map>img{
+    min-height:410px;
+    height:62vh;
+  }
+  .atlas-static-city{
+    min-width:98px;
+    min-height:38px;
+    padding-left:28px;
+    font-size:8px;
+  }
+}
