@@ -318,165 +318,110 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 
 
-/* ===== SATELLITE COURSE MAP ===== */
+
+
+/* ===== SATELLITE COURSE MAP V2 — no external JS dependency ===== */
 document.addEventListener("DOMContentLoaded",()=>{
   const dialog=document.getElementById("atlasMapDialog");
   const openBtn=document.querySelector("[data-map-open]");
   const closeBtn=document.querySelector("[data-map-close]");
   const regionBtns=[...document.querySelectorAll("[data-map-region]")];
-  const mapEl=document.getElementById("atlasSatelliteMap");
-  if(!dialog||!openBtn||!mapEl)return;
+  const image=document.querySelector("[data-map-image]");
+  const overlay=document.querySelector("[data-map-overlay]");
+  const loading=document.querySelector("[data-map-loading]");
+  if(!dialog||!openBtn||!image||!overlay)return;
 
-  const regions={
-    iceland:{center:[64.92,-18.55],zoom:6.1},
-    reykjavik:{center:[64.13,-21.88],zoom:11.2},
-    akureyri:{center:[65.69,-18.11],zoom:10.4},
-    egilsstadir:{center:[65.25,-14.42],zoom:10.1}
+  const maps={
+    iceland:{
+      bbox:"-25.2,63.15,-12.8,66.8",
+      points:[
+        {type:"city",label:"Reykjavík",x:24,y:73,region:"reykjavik"},
+        {type:"city",label:"Akureyri",x:55,y:34,region:"akureyri"},
+        {type:"city",label:"Egilsstaðir",x:82,y:50,region:"egilsstadir"}
+      ]
+    },
+    reykjavik:{
+      bbox:"-22.08,64.04,-21.68,64.29",
+      points:[
+        {label:"Grafarholt",x:82,y:66,href:"grafarholt.html"},
+        {label:"Klambratún",x:42,y:61,href:"klambratun.html"},
+        {label:"Laugardalur",x:55,y:61,href:"laugardalur.html"},
+        {label:"Kjalarnes",x:63,y:16,href:"kjalarnes.html"},
+        {label:"Fella- og Hólahverfi",x:68,y:78,href:"fellahverfi.html"},
+        {label:"Seljahverfi",x:58,y:80,href:"seljahverfi.html"}
+      ]
+    },
+    akureyri:{
+      bbox:"-18.55,65.58,-17.82,66.62",
+      points:[
+        {label:"Hamrar",x:61,y:90,href:"hamrar.html"},
+        {label:"Háskólavöllurinn",x:58,y:86,href:"haskoli-akureyri.html"},
+        {label:"Hamarkotstún",x:61,y:86,href:"hamarkotstun.html"},
+        {label:"Eiðsvöllur",x:63,y:85,href:"eidsvollur.html"},
+        {label:"VMA",x:61,y:87,href:"vma.html"},
+        {label:"Hrísey",x:24,y:60,href:"hrisey.html"},
+        {label:"Grímsey",x:72,y:8,href:"grimsey.html"}
+      ]
+    },
+    egilsstadir:{
+      bbox:"-14.95,64.98,-14.20,65.40",
+      points:[
+        {label:"Selskógur",x:76,y:34,href:"selskogur.html"},
+        {label:"Tjarnargarður",x:73,y:35,href:"tjarnargardur.html"},
+        {label:"Hallormsstaðaskógur",x:27,y:78,href:"hallormsstadur.html"}
+      ]
+    }
   };
 
-  const courses={
-    reykjavik:[
-      ["Grafarholt",64.12268495446106,-21.750312857329845,"grafarholt.html"],
-      ["Klambratún",64.138521,-21.915918,"klambratun.html"],
-      ["Laugardalur",64.139246,-21.865271,"laugardalur.html"],
-      ["Kjalarnes",64.2374064881233,-21.828555881514774,"kjalarnes.html"],
-      ["Fella- og Hólahverfi",64.10284,-21.809904,"fellahverfi.html"],
-      ["Seljahverfi",64.099381,-21.845597,"seljahverfi.html"]
-    ],
-    akureyri:[
-      ["Hamrar",65.64882895286553,-18.104909669205227,"hamrar.html"],
-      ["Háskólavöllurinn",65.68085681564799,-18.126469105482105,"haskoli-akureyri.html"],
-      ["Hamarkotstún",65.679919,-18.101591,"hamarkotstun.html"],
-      ["Eiðsvöllur",65.68636223847858,-18.08999852293488,"eidsvollur.html"],
-      ["VMA",65.67075143682564,-18.10320721730264,"vma.html"],
-      ["Hrísey",65.981328,-18.375902,"hrisey.html"],
-      ["Grímsey",66.54054268849171,-18.01758348941803,"grimsey.html"]
-    ],
-    egilsstadir:[
-      ["Selskógur",65.26398004596984,-14.379841165648998,"selskogur.html"],
-      ["Tjarnargarður",65.263038,-14.396607,"tjarnargardur.html"],
-      ["Hallormsstaðaskógur",65.08610795565457,-14.769204784337767,"hallormsstadur.html"]
-    ]
+  const exportUrl=bbox=>{
+    const size=window.innerWidth<620?"900,900":"1400,820";
+    return "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export"+
+      "?bbox="+encodeURIComponent(bbox)+
+      "&bboxSR=4326&imageSR=4326&size="+size+
+      "&format=jpg&f=image";
   };
 
-  const cityPoints={
-    reykjavik:["Reykjavík",64.1466,-21.9426],
-    akureyri:["Akureyri",65.6885,-18.1262],
-    egilsstadir:["Egilsstaðir",65.2669,-14.3948]
-  };
-
-  let map=null;
-  let markers=[];
-  let activeRegion="iceland";
-
-  const clearMarkers=()=>{
-    markers.forEach(m=>m.remove());
-    markers=[];
-  };
-
-  const courseIcon=()=>{
-    if(!window.L)return null;
-    return L.divIcon({
-      className:"course-map-pin-wrap",
-      html:'<span class="course-map-pin"><i></i></span>',
-      iconSize:[28,36],
-      iconAnchor:[14,34],
-      popupAnchor:[0,-30]
-    });
-  };
-
-  const cityIcon=label=>{
-    if(!window.L)return null;
-    return L.divIcon({
-      className:"city-map-pin-wrap",
-      html:'<button type="button" class="city-map-pin"><span></span><b>'+label+'</b></button>',
-      iconSize:[118,44],
-      iconAnchor:[59,22]
-    });
-  };
-
-  const setActiveButton=name=>{
+  const setActive=name=>{
     regionBtns.forEach(b=>b.classList.toggle("active",b.dataset.mapRegion===name));
   };
 
-  const showIceland=()=>{
-    if(!map)return;
-    activeRegion="iceland";
-    clearMarkers();
-    map.flyTo(regions.iceland.center,regions.iceland.zoom,{duration:.9});
-    Object.entries(cityPoints).forEach(([key,p])=>{
-      const m=L.marker([p[1],p[2]],{icon:cityIcon(p[0]),keyboard:true}).addTo(map);
-      m.on("click",()=>showRegion(key));
-      markers.push(m);
-    });
-    setActiveButton("iceland");
-  };
+  const render=name=>{
+    const cfg=maps[name]||maps.iceland;
+    setActive(name);
+    overlay.innerHTML="";
+    loading.hidden=false;
+    image.classList.remove("ready");
+    image.onload=()=>{loading.hidden=true;image.classList.add("ready")};
+    image.onerror=()=>{loading.textContent="Gervihnattakortið náðist ekki — prófaðu aftur.";loading.hidden=false};
+    image.src=exportUrl(cfg.bbox);
 
-  const showRegion=name=>{
-    if(!map||!regions[name])return;
-    activeRegion=name;
-    clearMarkers();
-    map.flyTo(regions[name].center,regions[name].zoom,{duration:.9});
-    (courses[name]||[]).forEach(c=>{
-      const m=L.marker([c[1],c[2]],{icon:courseIcon(),keyboard:true}).addTo(map);
-      const popup=document.createElement("div");
-      popup.className="course-map-popup";
-      const title=document.createElement("b");
-      title.textContent=c[0];
-      const link=document.createElement("a");
-      link.href=c[3];
-      link.textContent="Opna völl →";
-      popup.append(title,link);
-      m.bindPopup(popup,{closeButton:false,offset:[0,-4]});
-      markers.push(m);
-    });
-    setActiveButton(name);
-  };
-
-  const initMap=()=>{
-    if(map||!window.L)return;
-    map=L.map(mapEl,{
-      zoomControl:true,
-      attributionControl:true,
-      minZoom:5,
-      maxZoom:18,
-      zoomSnap:.25,
-      preferCanvas:true
-    }).setView(regions.iceland.center,regions.iceland.zoom);
-
-    L.tileLayer(
-      "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      {
-        maxZoom:18,
-        attribution:"Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community"
+    cfg.points.forEach(p=>{
+      const el=document.createElement(p.href?"a":"button");
+      el.className=p.type==="city"?"atlas-static-city":"atlas-static-pin";
+      el.style.left=p.x+"%";
+      el.style.top=p.y+"%";
+      el.textContent=p.label;
+      if(p.href){
+        el.href=p.href;
+        el.setAttribute("aria-label","Opna "+p.label);
+      }else{
+        el.type="button";
+        el.addEventListener("click",()=>render(p.region));
       }
-    ).addTo(map);
-
-    showIceland();
+      overlay.appendChild(el);
+    });
   };
 
   openBtn.addEventListener("click",()=>{
     dialog.showModal();
-    requestAnimationFrame(()=>{
-      initMap();
-      setTimeout(()=>map?.invalidateSize(),80);
-    });
+    render("iceland");
   });
-
   closeBtn?.addEventListener("click",()=>dialog.close());
-
   dialog.addEventListener("click",e=>{
     const shell=dialog.querySelector(".atlas-map-shell");
     if(!shell)return;
     const r=shell.getBoundingClientRect();
     if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();
   });
-
-  regionBtns.forEach(btn=>{
-    btn.addEventListener("click",()=>{
-      const name=btn.dataset.mapRegion;
-      if(name==="iceland")showIceland();
-      else showRegion(name);
-    });
-  });
+  regionBtns.forEach(btn=>btn.addEventListener("click",()=>render(btn.dataset.mapRegion)));
 });
