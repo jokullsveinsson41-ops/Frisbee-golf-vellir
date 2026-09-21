@@ -1539,3 +1539,180 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
 .metro-hero:hover .metro-course-bg{
   filter:saturate(1.26) contrast(1.10) brightness(.9)!important;
 }
+
+
+/* ===== COURSE ACTION CLEANUP =====
+   Keep the visual artwork, but give every action a clean readable lower panel.
+   This prevents decorative stats/labels from sitting behind the real text. */
+.metro-course .graf-action{
+  min-height:238px;
+  background:#09110e!important;
+}
+.metro-course .graf-action-bg{
+  inset:0;
+  overflow:hidden;
+}
+.metro-course .graf-action-shade{
+  background:
+    linear-gradient(0deg,rgba(4,9,6,.98) 0%,rgba(4,9,6,.82) 35%,rgba(4,9,6,.10) 70%,rgba(4,9,6,.03) 100%)!important;
+}
+.metro-course .graf-action-copy{
+  left:12px;
+  right:12px;
+  bottom:12px;
+  z-index:6;
+  padding:13px 14px 12px;
+  border-radius:15px;
+  background:linear-gradient(155deg,rgba(7,14,11,.94),rgba(8,17,13,.86));
+  border:1px solid rgba(141,255,189,.10);
+  box-shadow:0 12px 30px rgba(0,0,0,.20);
+  backdrop-filter:blur(8px);
+}
+.metro-course .graf-action-copy small{
+  color:#a9c889!important;
+}
+.metro-course .graf-action-copy h3{
+  margin:4px 0 6px;
+  color:#f3f8f4!important;
+  text-shadow:none!important;
+}
+.metro-course .graf-action-copy p{
+  margin:0 0 9px;
+  color:rgba(236,246,239,.58)!important;
+}
+.metro-course .graf-action-copy>span{
+  padding:6px 8px;
+  background:rgba(216,255,159,.075)!important;
+  border-color:rgba(216,255,159,.10)!important;
+  color:#ddffb1!important;
+}
+.metro-course .graf-action-icon{
+  z-index:7;
+  background:rgba(8,16,12,.72)!important;
+  border-color:rgba(216,255,159,.13)!important;
+  backdrop-filter:blur(8px);
+}
+
+/* Decorative text stays in the artwork zone, above the copy panel. */
+.metro-course .metro-holes-visual>strong{
+  top:32px;
+  left:20px;
+  font-size:clamp(38px,5vw,58px);
+  opacity:.82;
+}
+.metro-course .metro-holes-visual>span{
+  top:88px;
+  left:22px;
+  opacity:.48;
+}
+.metro-course .score-lines{
+  top:24px;
+  right:18px;
+  height:78px;
+  opacity:.65;
+}
+.metro-course .info-panel{
+  top:38px;
+  left:20px;
+  transform:scale(.9);
+  transform-origin:left top;
+  opacity:.72;
+  backdrop-filter:none;
+}
+.metro-course .info-panel-b{
+  top:72px;
+  left:87px;
+}
+.metro-course .info-visual-icon{
+  right:20px;
+  top:34px;
+  bottom:auto;
+  width:54px;
+  height:54px;
+  opacity:.65;
+}
+.metro-course .history-year{
+  top:30px;
+  left:20px;
+  font-size:clamp(30px,4.2vw,44px);
+  opacity:.8;
+}
+.metro-course .history-line{
+  top:84px;
+}
+.metro-course .history-dot{
+  top:78px;
+}
+.metro-course .history-label{
+  top:101px;
+  opacity:.48;
+}
+
+/* Directions: crisp map-like graphic instead of a washed/blurred block. */
+.metro-course .map-visual{
+  background:
+    linear-gradient(28deg,transparent 0 34%,rgba(121,245,255,.15) 35% 36%,transparent 37% 100%),
+    linear-gradient(145deg,rgba(216,255,159,.08),rgba(121,245,255,.035)),
+    #0b1714!important;
+}
+.metro-course .map-visual:after{
+  inset:0;
+  transform:none;
+  background-image:
+    linear-gradient(rgba(141,255,189,.065) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(121,245,255,.055) 1px,transparent 1px);
+  background-size:30px 30px;
+  opacity:.9;
+}
+.metro-course .map-visual:before{
+  content:"";
+  position:absolute;
+  left:24px;
+  top:38px;
+  width:58%;
+  height:54px;
+  border-top:3px solid rgba(216,255,159,.52);
+  border-right:3px solid rgba(216,255,159,.52);
+  border-radius:0 30px 0 0;
+  transform:rotate(-8deg);
+  box-shadow:22px -14px 34px rgba(121,245,255,.06);
+}
+.metro-course .graf-action-map .graf-action-shade{
+  background:
+    linear-gradient(0deg,rgba(4,9,6,.98) 0%,rgba(4,9,6,.80) 36%,rgba(4,9,6,.08) 72%)!important;
+}
+.metro-course .graf-action-map .graf-action-copy small,
+.metro-course .graf-action-map .graf-action-copy h3,
+.metro-course .graf-action-map .graf-action-copy p,
+.metro-course .graf-action-map .graf-action-copy>span{
+  color:inherit!important;
+}
+.metro-course .graf-action-map .graf-action-copy small{color:#a9c889!important}
+.metro-course .graf-action-map .graf-action-copy h3{color:#f3f8f4!important}
+.metro-course .graf-action-map .graf-action-copy p{color:rgba(236,246,239,.58)!important}
+.metro-course .graf-action-map .graf-action-copy>span{color:#ddffb1!important}
+
+@media(max-width:430px){
+  .metro-course .graf-action{min-height:188px}
+  .metro-course .graf-action-copy{
+    left:8px;right:8px;bottom:8px;
+    padding:10px 10px 9px;
+    border-radius:12px;
+  }
+  .metro-course .graf-action-copy h3{font-size:17px;margin:3px 0 7px}
+  .metro-course .graf-action-copy p{display:none}
+  .metro-course .graf-action-copy small{font-size:7px}
+  .metro-course .graf-action-copy>span{font-size:8px;padding:5px 7px}
+  .metro-course .graf-action-icon{left:11px;top:11px}
+  .metro-course .metro-holes-visual>strong{top:24px;left:16px;font-size:34px}
+  .metro-course .metro-holes-visual>span{top:63px;left:17px}
+  .metro-course .score-lines{height:56px;top:20px;right:12px}
+  .metro-course .info-panel{top:26px;left:14px;transform:scale(.72)}
+  .metro-course .info-panel-b{top:50px;left:60px}
+  .metro-course .info-visual-icon{right:12px;top:24px;width:42px;height:42px}
+  .metro-course .history-year{top:22px;left:15px;font-size:28px}
+  .metro-course .history-line{top:60px}
+  .metro-course .history-dot{top:54px}
+  .metro-course .history-label{top:76px}
+  .metro-course .map-visual:before{left:18px;top:28px;width:55%;height:42px}
+}
