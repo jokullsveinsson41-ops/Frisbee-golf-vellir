@@ -324,7 +324,9 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 
-/* ===== SATELLITE COURSE MAP V4 — native slippy map ===== */
+
+
+/* ===== SATELLITE COURSE MAP V5 — smooth touch panning + complete site markers ===== */
 document.addEventListener("DOMContentLoaded",()=>{
   const dialog=document.getElementById("atlasMapDialog");
   const openBtn=document.querySelector("[data-map-open]");
@@ -347,6 +349,11 @@ document.addEventListener("DOMContentLoaded",()=>{
   let dragging=false;
   let dragStart=null;
   let dragWorld=null;
+  let dragDX=0;
+  let dragDY=0;
+  let raf=0;
+  let lastMove=null;
+  let velocity={x:0,y:0};
 
   const regions={
     iceland:{lat:64.92,lon:-18.55,z:6},
@@ -355,28 +362,32 @@ document.addEventListener("DOMContentLoaded",()=>{
     egilsstadir:{lat:65.245,lon:-14.48,z:11}
   };
 
+  /* Every course currently shown in the site's three region directories. */
   const courses={
     reykjavik:[
-      ["Grafarholt",64.12268495446106,-21.750312857329845,"grafarholt.html"],
-      ["Klambratún",64.138521,-21.915918,"klambratun.html"],
-      ["Laugardalur",64.139246,-21.865271,"laugardalur.html"],
-      ["Kjalarnes",64.2374064881233,-21.828555881514774,"kjalarnes.html"],
-      ["Fella- og Hólahverfi",64.10284,-21.809904,"fellahverfi.html"],
-      ["Seljahverfi",64.099381,-21.845597,"seljahverfi.html"]
+      ["Grafarholt",64.12268495446106,-21.750312857329845,"grafarholt.html",0,0],
+      ["Grafarholt púttvöllur",64.12268495446106,-21.750312857329845,"reykjavik.html",20,-18],
+      ["Grafarvogur / Gufunes",64.143354,-21.809444,"reykjavik.html",0,0],
+      ["Klambratún",64.138521,-21.915918,"klambratun.html",0,0],
+      ["Laugardalur",64.139246,-21.865271,"laugardalur.html",0,0],
+      ["Fossvogsdalur",64.11675098474049,-21.885569080704233,"reykjavik.html",0,0],
+      ["Kjalarnes",64.2374064881233,-21.828555881514774,"kjalarnes.html",0,0],
+      ["Fella- og Hólahverfi",64.10284,-21.809904,"fellahverfi.html",0,0],
+      ["Seljahverfi",64.099381,-21.845597,"seljahverfi.html",0,0]
     ],
     akureyri:[
-      ["Hamrar",65.64882895286553,-18.104909669205227,"hamrar.html"],
-      ["Háskólavöllurinn",65.68085681564799,-18.126469105482105,"haskoli-akureyri.html"],
-      ["Hamarkotstún",65.679919,-18.101591,"hamarkotstun.html"],
-      ["Eiðsvöllur",65.68636223847858,-18.08999852293488,"eidsvollur.html"],
-      ["VMA",65.67075143682564,-18.10320721730264,"vma.html"],
-      ["Hrísey",65.981328,-18.375902,"hrisey.html"],
-      ["Grímsey",66.54054268849171,-18.01758348941803,"grimsey.html"]
+      ["Hamrar",65.64882895286553,-18.104909669205227,"hamrar.html",0,0],
+      ["Háskólavöllurinn",65.68085681564799,-18.126469105482105,"haskoli-akureyri.html",0,0],
+      ["Hamarkotstún",65.679919,-18.101591,"hamarkotstun.html",0,0],
+      ["Eiðsvöllur",65.68636223847858,-18.08999852293488,"eidsvollur.html",0,0],
+      ["Frisbígolfvöllur VMA",65.67075143682564,-18.10320721730264,"vma.html",0,0],
+      ["Hrísey",65.981328,-18.375902,"hrisey.html",0,0],
+      ["Grímsey Disc Golf",66.54054268849171,-18.01758348941803,"grimsey.html",0,0]
     ],
     egilsstadir:[
-      ["Selskógur",65.26398004596984,-14.379841165648998,"selskogur.html"],
-      ["Tjarnargarður",65.263038,-14.396607,"tjarnargardur.html"],
-      ["Hallormsstaðaskógur",65.08610795565457,-14.769204784337767,"hallormsstadur.html"]
+      ["Selskógur",65.26398004596984,-14.379841165648998,"selskogur.html",0,0],
+      ["Tjarnargarður",65.263038,-14.396607,"tjarnargardur.html",0,0],
+      ["Hallormsstaðaskógur",65.08610795565457,-14.769204784337767,"hallormsstadur.html",0,0]
     ]
   };
 
@@ -387,7 +398,6 @@ document.addEventListener("DOMContentLoaded",()=>{
   ];
 
   const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
-
   const worldSize=z=>TILE*Math.pow(2,z);
 
   const project=(lat,lon,z)=>{
@@ -411,17 +421,26 @@ document.addEventListener("DOMContentLoaded",()=>{
     regionBtns.forEach(btn=>btn.classList.toggle("active",btn.dataset.mapRegion===name));
   };
 
+  const resetSceneTransform=()=>{
+    tilesEl.style.transform="";
+    markersEl.style.transform="";
+  };
+
   const renderTiles=()=>{
+    resetSceneTransform();
     const rect=mapEl.getBoundingClientRect();
     const w=Math.max(rect.width,320);
     const h=Math.max(rect.height,410);
     const center=project(state.lat,state.lon,state.z);
     const left=center.x-w/2;
     const top=center.y-h/2;
-    const startX=Math.floor(left/TILE)-1;
-    const endX=Math.floor((left+w)/TILE)+1;
-    const startY=Math.floor(top/TILE)-1;
-    const endY=Math.floor((top+h)/TILE)+1;
+
+    /* Extra tile padding keeps fast finger swipes from exposing blank edges. */
+    const pad=3;
+    const startX=Math.floor(left/TILE)-pad;
+    const endX=Math.floor((left+w)/TILE)+pad;
+    const startY=Math.floor(top/TILE)-pad;
+    const endY=Math.floor((top+h)/TILE)+pad;
     const max=Math.pow(2,state.z);
 
     const frag=document.createDocumentFragment();
@@ -433,6 +452,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         img.className="atlas-map-tile";
         img.alt="";
         img.draggable=false;
+        img.decoding="async";
+        img.loading="eager";
         img.src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/"+state.z+"/"+ty+"/"+wrapped;
         img.style.left=(tx*TILE-left)+"px";
         img.style.top=(ty*TILE-top)+"px";
@@ -444,11 +465,11 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(coordsEl)coordsEl.textContent=Math.abs(state.lat).toFixed(2)+"°"+(state.lat>=0?"N":"S")+" • "+Math.abs(state.lon).toFixed(2)+"°"+(state.lon>=0?"E":"W");
   };
 
-  const markerButton=(label,x,y,kind,action)=>{
+  const markerButton=(label,x,y,kind,action,dx=0,dy=0)=>{
     const el=document.createElement(kind==="course"?"a":"button");
     el.className=kind==="course"?"atlas-geo-course":"atlas-geo-city";
-    el.style.left=x+"px";
-    el.style.top=y+"px";
+    el.style.left=(x+dx)+"px";
+    el.style.top=(y+dy)+"px";
     if(kind==="course"){
       el.href=action;
       el.innerHTML='<span class="atlas-geo-pulse"></span><span class="atlas-geo-dot"></span><b>'+label+'</b>';
@@ -464,15 +485,15 @@ document.addEventListener("DOMContentLoaded",()=>{
   const renderMarkers=(left,top,w,h)=>{
     const frag=document.createDocumentFragment();
     const entries=activeRegion==="iceland"
-      ? cities.map(c=>({label:c[0],lat:c[1],lon:c[2],kind:"city",action:c[3]}))
-      : (courses[activeRegion]||[]).map(c=>({label:c[0],lat:c[1],lon:c[2],kind:"course",action:c[3]}));
+      ? cities.map(c=>({label:c[0],lat:c[1],lon:c[2],kind:"city",action:c[3],dx:0,dy:0}))
+      : (courses[activeRegion]||[]).map(c=>({label:c[0],lat:c[1],lon:c[2],kind:"course",action:c[3],dx:c[4]||0,dy:c[5]||0}));
 
     entries.forEach(m=>{
       const p=project(m.lat,m.lon,state.z);
       const x=p.x-left;
       const y=p.y-top;
-      if(x<-100||x>w+100||y<-100||y>h+100)return;
-      frag.appendChild(markerButton(m.label,x,y,m.kind,m.action));
+      if(x<-140||x>w+140||y<-140||y>h+140)return;
+      frag.appendChild(markerButton(m.label,x,y,m.kind,m.action,m.dx,m.dy));
     });
     markersEl.replaceChildren(frag);
   };
@@ -498,6 +519,28 @@ document.addEventListener("DOMContentLoaded",()=>{
     renderTiles();
   };
 
+  const applyDragFrame=()=>{
+    raf=0;
+    const t="translate3d("+dragDX+"px,"+dragDY+"px,0)";
+    tilesEl.style.transform=t;
+    markersEl.style.transform=t;
+  };
+
+  const scheduleDragFrame=()=>{
+    if(!raf)raf=requestAnimationFrame(applyDragFrame);
+  };
+
+  const commitDrag=(extraX=0,extraY=0)=>{
+    const totalX=dragDX+extraX;
+    const totalY=dragDY+extraY;
+    const next=unproject(dragWorld.x-totalX,dragWorld.y-totalY,state.z);
+    state.lat=clamp(next.lat,-85,85);
+    state.lon=((next.lon+540)%360)-180;
+    dragDX=0; dragDY=0;
+    resetSceneTransform();
+    renderTiles();
+  };
+
   openBtn.addEventListener("click",()=>{
     dialog.showModal();
     requestAnimationFrame(()=>{
@@ -511,26 +554,33 @@ document.addEventListener("DOMContentLoaded",()=>{
   resetBtn?.addEventListener("click",()=>goRegion("iceland"));
   zoomIn?.addEventListener("click",()=>setZoom(state.z+1));
   zoomOut?.addEventListener("click",()=>setZoom(state.z-1));
-
   regionBtns.forEach(btn=>btn.addEventListener("click",()=>goRegion(btn.dataset.mapRegion)));
 
   mapEl.addEventListener("pointerdown",e=>{
     if(e.target.closest("a,button"))return;
     dragging=true;
-    mapEl.setPointerCapture?.(e.pointerId);
     dragStart={x:e.clientX,y:e.clientY};
     dragWorld=project(state.lat,state.lon,state.z);
+    dragDX=0; dragDY=0;
+    velocity={x:0,y:0};
+    lastMove={x:e.clientX,y:e.clientY,t:performance.now()};
+    mapEl.setPointerCapture?.(e.pointerId);
     mapEl.classList.add("dragging");
   });
 
   mapEl.addEventListener("pointermove",e=>{
-    if(!dragging||!dragStart||!dragWorld)return;
-    const dx=e.clientX-dragStart.x;
-    const dy=e.clientY-dragStart.y;
-    const next=unproject(dragWorld.x-dx,dragWorld.y-dy,state.z);
-    state.lat=clamp(next.lat,-85,85);
-    state.lon=((next.lon+540)%360)-180;
-    renderTiles();
+    if(!dragging||!dragStart)return;
+    dragDX=e.clientX-dragStart.x;
+    dragDY=e.clientY-dragStart.y;
+
+    const now=performance.now();
+    if(lastMove){
+      const dt=Math.max(8,now-lastMove.t);
+      velocity.x=(e.clientX-lastMove.x)/dt;
+      velocity.y=(e.clientY-lastMove.y)/dt;
+    }
+    lastMove={x:e.clientX,y:e.clientY,t:now};
+    scheduleDragFrame();
   });
 
   const stopDrag=e=>{
@@ -538,13 +588,39 @@ document.addEventListener("DOMContentLoaded",()=>{
     dragging=false;
     mapEl.releasePointerCapture?.(e.pointerId);
     mapEl.classList.remove("dragging");
+
+    /* Small inertia gives iPhone swipes a natural, map-like finish. */
+    const speed=Math.hypot(velocity.x,velocity.y);
+    const inertia=speed>.12?Math.min(180,speed*95):0;
+    const extraX=velocity.x*inertia;
+    const extraY=velocity.y*inertia;
+
+    if(inertia>0){
+      const tx=dragDX+extraX;
+      const ty=dragDY+extraY;
+      const transition="transform "+Math.min(280,120+inertia*.6)+"ms cubic-bezier(.18,.72,.2,1)";
+      tilesEl.style.transition=transition;
+      markersEl.style.transition=transition;
+      tilesEl.style.transform="translate3d("+tx+"px,"+ty+"px,0)";
+      markersEl.style.transform="translate3d("+tx+"px,"+ty+"px,0)";
+      setTimeout(()=>{
+        tilesEl.style.transition="";
+        markersEl.style.transition="";
+        commitDrag(extraX,extraY);
+      },Math.min(300,140+inertia*.6));
+    }else{
+      commitDrag();
+    }
   };
+
   mapEl.addEventListener("pointerup",stopDrag);
   mapEl.addEventListener("pointercancel",stopDrag);
 
+  let wheelTimer=0;
   mapEl.addEventListener("wheel",e=>{
     e.preventDefault();
-    setZoom(state.z+(e.deltaY<0?1:-1));
+    clearTimeout(wheelTimer);
+    wheelTimer=setTimeout(()=>setZoom(state.z+(e.deltaY<0?1:-1)),32);
   },{passive:false});
 
   mapEl.addEventListener("keydown",e=>{
