@@ -320,20 +320,21 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 
-/* ===== SATELLITE COURSE MAP V2 — no external JS dependency ===== */
+
+
+/* ===== SATELLITE COURSE MAP V3 — iframe based for preview compatibility ===== */
 document.addEventListener("DOMContentLoaded",()=>{
   const dialog=document.getElementById("atlasMapDialog");
   const openBtn=document.querySelector("[data-map-open]");
   const closeBtn=document.querySelector("[data-map-close]");
   const regionBtns=[...document.querySelectorAll("[data-map-region]")];
-  const image=document.querySelector("[data-map-image]");
+  const frame=document.querySelector("[data-map-frame]");
   const overlay=document.querySelector("[data-map-overlay]");
-  const loading=document.querySelector("[data-map-loading]");
-  if(!dialog||!openBtn||!image||!overlay)return;
+  if(!dialog||!openBtn||!frame||!overlay)return;
 
   const maps={
     iceland:{
-      bbox:"-25.2,63.15,-12.8,66.8",
+      q:"Iceland",z:6,
       points:[
         {type:"city",label:"Reykjavík",x:24,y:73,region:"reykjavik"},
         {type:"city",label:"Akureyri",x:55,y:34,region:"akureyri"},
@@ -341,7 +342,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       ]
     },
     reykjavik:{
-      bbox:"-22.08,64.04,-21.68,64.29",
+      q:"Reykjavik Iceland",z:11,
       points:[
         {label:"Grafarholt",x:82,y:66,href:"grafarholt.html"},
         {label:"Klambratún",x:42,y:61,href:"klambratun.html"},
@@ -352,19 +353,19 @@ document.addEventListener("DOMContentLoaded",()=>{
       ]
     },
     akureyri:{
-      bbox:"-18.55,65.58,-17.82,66.62",
+      q:"Akureyri Iceland",z:10,
       points:[
-        {label:"Hamrar",x:61,y:90,href:"hamrar.html"},
-        {label:"Háskólavöllurinn",x:58,y:86,href:"haskoli-akureyri.html"},
-        {label:"Hamarkotstún",x:61,y:86,href:"hamarkotstun.html"},
-        {label:"Eiðsvöllur",x:63,y:85,href:"eidsvollur.html"},
-        {label:"VMA",x:61,y:87,href:"vma.html"},
-        {label:"Hrísey",x:24,y:60,href:"hrisey.html"},
+        {label:"Hamrar",x:61,y:74,href:"hamrar.html"},
+        {label:"Háskólavöllurinn",x:55,y:62,href:"haskoli-akureyri.html"},
+        {label:"Hamarkotstún",x:60,y:61,href:"hamarkotstun.html"},
+        {label:"Eiðsvöllur",x:63,y:59,href:"eidsvollur.html"},
+        {label:"VMA",x:59,y:66,href:"vma.html"},
+        {label:"Hrísey",x:29,y:27,href:"hrisey.html"},
         {label:"Grímsey",x:72,y:8,href:"grimsey.html"}
       ]
     },
     egilsstadir:{
-      bbox:"-14.95,64.98,-14.20,65.40",
+      q:"Egilsstadir Iceland",z:10,
       points:[
         {label:"Selskógur",x:76,y:34,href:"selskogur.html"},
         {label:"Tjarnargarður",x:73,y:35,href:"tjarnargardur.html"},
@@ -373,13 +374,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     }
   };
 
-  const exportUrl=bbox=>{
-    const size=window.innerWidth<620?"900,900":"1400,820";
-    return "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export"+
-      "?bbox="+encodeURIComponent(bbox)+
-      "&bboxSR=4326&imageSR=4326&size="+size+
-      "&format=jpg&f=image";
-  };
+  const mapUrl=(q,z)=>
+    "https://www.google.com/maps?q="+encodeURIComponent(q)+"&t=k&z="+z+"&output=embed";
 
   const setActive=name=>{
     regionBtns.forEach(b=>b.classList.toggle("active",b.dataset.mapRegion===name));
@@ -388,13 +384,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   const render=name=>{
     const cfg=maps[name]||maps.iceland;
     setActive(name);
+    frame.src=mapUrl(cfg.q,cfg.z);
     overlay.innerHTML="";
-    loading.hidden=false;
-    image.classList.remove("ready");
-    image.onload=()=>{loading.hidden=true;image.classList.add("ready")};
-    image.onerror=()=>{loading.textContent="Gervihnattakortið náðist ekki — prófaðu aftur.";loading.hidden=false};
-    image.src=exportUrl(cfg.bbox);
-
     cfg.points.forEach(p=>{
       const el=document.createElement(p.href?"a":"button");
       el.className=p.type==="city"?"atlas-static-city":"atlas-static-pin";
@@ -404,6 +395,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       if(p.href){
         el.href=p.href;
         el.setAttribute("aria-label","Opna "+p.label);
+        el.title=p.label;
       }else{
         el.type="button";
         el.addEventListener("click",()=>render(p.region));
@@ -417,11 +409,13 @@ document.addEventListener("DOMContentLoaded",()=>{
     render("iceland");
   });
   closeBtn?.addEventListener("click",()=>dialog.close());
+
   dialog.addEventListener("click",e=>{
     const shell=dialog.querySelector(".atlas-map-shell");
     if(!shell)return;
     const r=shell.getBoundingClientRect();
     if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();
   });
+
   regionBtns.forEach(btn=>btn.addEventListener("click",()=>render(btn.dataset.mapRegion)));
 });
