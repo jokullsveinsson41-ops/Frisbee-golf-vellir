@@ -1933,3 +1933,137 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
     height:28px!important;
   }
 }
+
+
+/* ===== COURSE OPTION MICRO-ANIMATIONS ===== */
+.metro-course .graf-action{
+  transition:
+    transform .24s cubic-bezier(.2,.8,.2,1),
+    border-color .24s ease,
+    box-shadow .24s ease!important;
+  will-change:transform;
+}
+.metro-course .graf-action-bg{
+  transition:transform .38s cubic-bezier(.2,.8,.2,1),filter .38s ease!important;
+}
+.metro-course .graf-action-icon{
+  transition:
+    transform .28s cubic-bezier(.2,.8,.2,1),
+    background .28s ease,
+    border-color .28s ease!important;
+}
+.metro-course .graf-action-copy{
+  transition:background .24s ease,border-color .24s ease!important;
+}
+.metro-course .graf-action-copy>span{
+  transition:transform .22s ease,color .22s ease!important;
+}
+
+/* Desktop / pointer hover: tiny lift, never chunky. */
+@media(hover:hover) and (pointer:fine){
+  .metro-course .graf-action:hover{
+    transform:translateY(-4px) scale(1.012)!important;
+    border-color:rgba(141,255,189,.18)!important;
+    box-shadow:0 14px 30px rgba(0,0,0,.22),0 0 0 1px rgba(121,245,255,.025)!important;
+  }
+  .metro-course .graf-action:hover .graf-action-bg{
+    transform:scale(1.025)!important;
+    filter:brightness(1.06) saturate(1.08)!important;
+  }
+  .metro-course .graf-action:hover .graf-action-icon{
+    transform:translateY(-2px) rotate(-4deg) scale(1.06)!important;
+    border-color:rgba(216,255,159,.23)!important;
+  }
+  .metro-course .graf-action:hover .graf-action-copy{
+    background:#0d1913!important;
+    border-top-color:rgba(141,255,189,.14)!important;
+  }
+  .metro-course .graf-action:hover .graf-action-copy>span{
+    transform:translateX(4px)!important;
+    color:#e2ffb5!important;
+  }
+}
+
+/* Touch feedback for iPhone / mobile. */
+.metro-course .graf-action:active{
+  transform:scale(.975)!important;
+  transition-duration:.09s!important;
+}
+.metro-course .graf-action:active .graf-action-icon{
+  transform:scale(.92)!important;
+}
+
+/* Quiet motion inside each visual — decorative only. */
+.metro-course .map-visual:after{
+  animation:optionGridDrift 8s linear infinite;
+}
+.metro-course .score-lines{
+  animation:optionLinesFloat 4.8s ease-in-out infinite;
+}
+.metro-course .info-ring-a{
+  animation:optionOrbit 9s linear infinite;
+}
+.metro-course .info-ring-b{
+  animation:optionOrbitReverse 6.5s linear infinite;
+}
+.metro-course .info-visual-icon{
+  animation:optionIconBreath 3.6s ease-in-out infinite;
+}
+.metro-course .history-line{
+  background-size:200% 100%!important;
+  animation:optionHistoryFlow 4s ease-in-out infinite!important;
+}
+.metro-course .history-dot-a{
+  animation:optionDotPulse 2.8s ease-in-out infinite;
+}
+.metro-course .history-dot-b{
+  animation:optionDotPulse 2.8s ease-in-out 1.4s infinite;
+}
+
+@keyframes optionGridDrift{
+  from{background-position:0 0,0 0}
+  to{background-position:24px 24px,24px 24px}
+}
+@keyframes optionLinesFloat{
+  0%,100%{transform:translateY(0);opacity:.48}
+  50%{transform:translateY(-3px);opacity:.66}
+}
+@keyframes optionOrbit{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+@keyframes optionOrbitReverse{
+  from{transform:rotate(360deg)}
+  to{transform:rotate(0deg)}
+}
+@keyframes optionIconBreath{
+  0%,100%{transform:scale(1);opacity:.48}
+  50%{transform:scale(1.06);opacity:.68}
+}
+@keyframes optionHistoryFlow{
+  0%,100%{background-position:0 0;opacity:.42}
+  50%{background-position:100% 0;opacity:.66}
+}
+@keyframes optionDotPulse{
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(216,255,159,0)}
+  50%{transform:scale(1.12);box-shadow:0 0 0 5px rgba(216,255,159,.06)}
+}
+
+/* Motion remains subtle and accessible. */
+@media(prefers-reduced-motion:reduce){
+  .metro-course .graf-action,
+  .metro-course .graf-action-bg,
+  .metro-course .graf-action-icon,
+  .metro-course .graf-action-copy,
+  .metro-course .graf-action-copy>span,
+  .metro-course .map-visual:after,
+  .metro-course .score-lines,
+  .metro-course .info-ring-a,
+  .metro-course .info-ring-b,
+  .metro-course .info-visual-icon,
+  .metro-course .history-line,
+  .metro-course .history-dot{
+    animation:none!important;
+    transition:none!important;
+  }
+}
