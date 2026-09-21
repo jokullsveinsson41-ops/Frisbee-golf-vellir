@@ -322,93 +322,242 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 
-/* ===== SATELLITE COURSE MAP V3 — iframe based for preview compatibility ===== */
+
+
+/* ===== SATELLITE COURSE MAP V4 — native slippy map ===== */
 document.addEventListener("DOMContentLoaded",()=>{
   const dialog=document.getElementById("atlasMapDialog");
   const openBtn=document.querySelector("[data-map-open]");
   const closeBtn=document.querySelector("[data-map-close]");
   const regionBtns=[...document.querySelectorAll("[data-map-region]")];
-  const frame=document.querySelector("[data-map-frame]");
-  const overlay=document.querySelector("[data-map-overlay]");
-  if(!dialog||!openBtn||!frame||!overlay)return;
+  const mapEl=document.querySelector("[data-atlas-map]");
+  const tilesEl=document.querySelector("[data-map-tiles]");
+  const markersEl=document.querySelector("[data-map-markers]");
+  const coordsEl=document.querySelector("[data-map-coords]");
+  const zoomIn=document.querySelector("[data-map-zoom-in]");
+  const zoomOut=document.querySelector("[data-map-zoom-out]");
+  const resetBtn=document.querySelector("[data-map-reset]");
+  if(!dialog||!openBtn||!mapEl||!tilesEl||!markersEl)return;
 
-  const maps={
-    iceland:{
-      q:"Iceland",z:6,
-      points:[
-        {type:"city",label:"Reykjavík",x:24,y:73,region:"reykjavik"},
-        {type:"city",label:"Akureyri",x:55,y:34,region:"akureyri"},
-        {type:"city",label:"Egilsstaðir",x:82,y:50,region:"egilsstadir"}
-      ]
-    },
-    reykjavik:{
-      q:"Reykjavik Iceland",z:11,
-      points:[
-        {label:"Grafarholt",x:82,y:66,href:"grafarholt.html"},
-        {label:"Klambratún",x:42,y:61,href:"klambratun.html"},
-        {label:"Laugardalur",x:55,y:61,href:"laugardalur.html"},
-        {label:"Kjalarnes",x:63,y:16,href:"kjalarnes.html"},
-        {label:"Fella- og Hólahverfi",x:68,y:78,href:"fellahverfi.html"},
-        {label:"Seljahverfi",x:58,y:80,href:"seljahverfi.html"}
-      ]
-    },
-    akureyri:{
-      q:"Akureyri Iceland",z:10,
-      points:[
-        {label:"Hamrar",x:61,y:74,href:"hamrar.html"},
-        {label:"Háskólavöllurinn",x:55,y:62,href:"haskoli-akureyri.html"},
-        {label:"Hamarkotstún",x:60,y:61,href:"hamarkotstun.html"},
-        {label:"Eiðsvöllur",x:63,y:59,href:"eidsvollur.html"},
-        {label:"VMA",x:59,y:66,href:"vma.html"},
-        {label:"Hrísey",x:29,y:27,href:"hrisey.html"},
-        {label:"Grímsey",x:72,y:8,href:"grimsey.html"}
-      ]
-    },
-    egilsstadir:{
-      q:"Egilsstadir Iceland",z:10,
-      points:[
-        {label:"Selskógur",x:76,y:34,href:"selskogur.html"},
-        {label:"Tjarnargarður",x:73,y:35,href:"tjarnargardur.html"},
-        {label:"Hallormsstaðaskógur",x:27,y:78,href:"hallormsstadur.html"}
-      ]
-    }
+  const TILE=256;
+  const MIN_Z=5;
+  const MAX_Z=15;
+  let state={lat:64.92,lon:-18.55,z:6};
+  let activeRegion="iceland";
+  let dragging=false;
+  let dragStart=null;
+  let dragWorld=null;
+
+  const regions={
+    iceland:{lat:64.92,lon:-18.55,z:6},
+    reykjavik:{lat:64.13,lon:-21.88,z:12},
+    akureyri:{lat:65.685,lon:-18.12,z:12},
+    egilsstadir:{lat:65.245,lon:-14.48,z:11}
   };
 
-  const mapUrl=(q,z)=>
-    "https://www.google.com/maps?q="+encodeURIComponent(q)+"&t=k&z="+z+"&output=embed";
-
-  const setActive=name=>{
-    regionBtns.forEach(b=>b.classList.toggle("active",b.dataset.mapRegion===name));
+  const courses={
+    reykjavik:[
+      ["Grafarholt",64.12268495446106,-21.750312857329845,"grafarholt.html"],
+      ["Klambratún",64.138521,-21.915918,"klambratun.html"],
+      ["Laugardalur",64.139246,-21.865271,"laugardalur.html"],
+      ["Kjalarnes",64.2374064881233,-21.828555881514774,"kjalarnes.html"],
+      ["Fella- og Hólahverfi",64.10284,-21.809904,"fellahverfi.html"],
+      ["Seljahverfi",64.099381,-21.845597,"seljahverfi.html"]
+    ],
+    akureyri:[
+      ["Hamrar",65.64882895286553,-18.104909669205227,"hamrar.html"],
+      ["Háskólavöllurinn",65.68085681564799,-18.126469105482105,"haskoli-akureyri.html"],
+      ["Hamarkotstún",65.679919,-18.101591,"hamarkotstun.html"],
+      ["Eiðsvöllur",65.68636223847858,-18.08999852293488,"eidsvollur.html"],
+      ["VMA",65.67075143682564,-18.10320721730264,"vma.html"],
+      ["Hrísey",65.981328,-18.375902,"hrisey.html"],
+      ["Grímsey",66.54054268849171,-18.01758348941803,"grimsey.html"]
+    ],
+    egilsstadir:[
+      ["Selskógur",65.26398004596984,-14.379841165648998,"selskogur.html"],
+      ["Tjarnargarður",65.263038,-14.396607,"tjarnargardur.html"],
+      ["Hallormsstaðaskógur",65.08610795565457,-14.769204784337767,"hallormsstadur.html"]
+    ]
   };
 
-  const render=name=>{
-    const cfg=maps[name]||maps.iceland;
-    setActive(name);
-    frame.src=mapUrl(cfg.q,cfg.z);
-    overlay.innerHTML="";
-    cfg.points.forEach(p=>{
-      const el=document.createElement(p.href?"a":"button");
-      el.className=p.type==="city"?"atlas-static-city":"atlas-static-pin";
-      el.style.left=p.x+"%";
-      el.style.top=p.y+"%";
-      el.textContent=p.label;
-      if(p.href){
-        el.href=p.href;
-        el.setAttribute("aria-label","Opna "+p.label);
-        el.title=p.label;
-      }else{
-        el.type="button";
-        el.addEventListener("click",()=>render(p.region));
+  const cities=[
+    ["Reykjavík",64.1466,-21.9426,"reykjavik"],
+    ["Akureyri",65.6885,-18.1262,"akureyri"],
+    ["Egilsstaðir",65.2669,-14.3948,"egilsstadir"]
+  ];
+
+  const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+
+  const worldSize=z=>TILE*Math.pow(2,z);
+
+  const project=(lat,lon,z)=>{
+    const size=worldSize(z);
+    const x=(lon+180)/360*size;
+    const sin=Math.sin(lat*Math.PI/180);
+    const y=(0.5-Math.log((1+sin)/(1-sin))/(4*Math.PI))*size;
+    return {x,y};
+  };
+
+  const unproject=(x,y,z)=>{
+    const size=worldSize(z);
+    const lon=x/size*360-180;
+    const n=Math.PI-2*Math.PI*y/size;
+    const lat=180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n)));
+    return {lat,lon};
+  };
+
+  const setActiveRegion=name=>{
+    activeRegion=name;
+    regionBtns.forEach(btn=>btn.classList.toggle("active",btn.dataset.mapRegion===name));
+  };
+
+  const renderTiles=()=>{
+    const rect=mapEl.getBoundingClientRect();
+    const w=Math.max(rect.width,320);
+    const h=Math.max(rect.height,410);
+    const center=project(state.lat,state.lon,state.z);
+    const left=center.x-w/2;
+    const top=center.y-h/2;
+    const startX=Math.floor(left/TILE)-1;
+    const endX=Math.floor((left+w)/TILE)+1;
+    const startY=Math.floor(top/TILE)-1;
+    const endY=Math.floor((top+h)/TILE)+1;
+    const max=Math.pow(2,state.z);
+
+    const frag=document.createDocumentFragment();
+    for(let ty=startY;ty<=endY;ty++){
+      if(ty<0||ty>=max)continue;
+      for(let tx=startX;tx<=endX;tx++){
+        const wrapped=((tx%max)+max)%max;
+        const img=document.createElement("img");
+        img.className="atlas-map-tile";
+        img.alt="";
+        img.draggable=false;
+        img.src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/"+state.z+"/"+ty+"/"+wrapped;
+        img.style.left=(tx*TILE-left)+"px";
+        img.style.top=(ty*TILE-top)+"px";
+        frag.appendChild(img);
       }
-      overlay.appendChild(el);
+    }
+    tilesEl.replaceChildren(frag);
+    renderMarkers(left,top,w,h);
+    if(coordsEl)coordsEl.textContent=Math.abs(state.lat).toFixed(2)+"°"+(state.lat>=0?"N":"S")+" • "+Math.abs(state.lon).toFixed(2)+"°"+(state.lon>=0?"E":"W");
+  };
+
+  const markerButton=(label,x,y,kind,action)=>{
+    const el=document.createElement(kind==="course"?"a":"button");
+    el.className=kind==="course"?"atlas-geo-course":"atlas-geo-city";
+    el.style.left=x+"px";
+    el.style.top=y+"px";
+    if(kind==="course"){
+      el.href=action;
+      el.innerHTML='<span class="atlas-geo-pulse"></span><span class="atlas-geo-dot"></span><b>'+label+'</b>';
+      el.setAttribute("aria-label","Opna "+label);
+    }else{
+      el.type="button";
+      el.innerHTML='<span class="atlas-city-radar"></span><i></i><b>'+label+'</b>';
+      el.addEventListener("click",()=>goRegion(action));
+    }
+    return el;
+  };
+
+  const renderMarkers=(left,top,w,h)=>{
+    const frag=document.createDocumentFragment();
+    const entries=activeRegion==="iceland"
+      ? cities.map(c=>({label:c[0],lat:c[1],lon:c[2],kind:"city",action:c[3]}))
+      : (courses[activeRegion]||[]).map(c=>({label:c[0],lat:c[1],lon:c[2],kind:"course",action:c[3]}));
+
+    entries.forEach(m=>{
+      const p=project(m.lat,m.lon,state.z);
+      const x=p.x-left;
+      const y=p.y-top;
+      if(x<-100||x>w+100||y<-100||y>h+100)return;
+      frag.appendChild(markerButton(m.label,x,y,m.kind,m.action));
     });
+    markersEl.replaceChildren(frag);
+  };
+
+  const goRegion=name=>{
+    const r=regions[name];
+    if(!r)return;
+    setActiveRegion(name);
+    state={lat:r.lat,lon:r.lon,z:r.z};
+    renderTiles();
+  };
+
+  const setZoom=z=>{
+    state.z=clamp(Math.round(z),MIN_Z,MAX_Z);
+    renderTiles();
+  };
+
+  const panPixels=(dx,dy)=>{
+    const p=project(state.lat,state.lon,state.z);
+    const next=unproject(p.x-dx,p.y-dy,state.z);
+    state.lat=clamp(next.lat,-85,85);
+    state.lon=((next.lon+540)%360)-180;
+    renderTiles();
   };
 
   openBtn.addEventListener("click",()=>{
     dialog.showModal();
-    render("iceland");
+    requestAnimationFrame(()=>{
+      setActiveRegion("iceland");
+      state={...regions.iceland};
+      renderTiles();
+    });
   });
+
   closeBtn?.addEventListener("click",()=>dialog.close());
+  resetBtn?.addEventListener("click",()=>goRegion("iceland"));
+  zoomIn?.addEventListener("click",()=>setZoom(state.z+1));
+  zoomOut?.addEventListener("click",()=>setZoom(state.z-1));
+
+  regionBtns.forEach(btn=>btn.addEventListener("click",()=>goRegion(btn.dataset.mapRegion)));
+
+  mapEl.addEventListener("pointerdown",e=>{
+    if(e.target.closest("a,button"))return;
+    dragging=true;
+    mapEl.setPointerCapture?.(e.pointerId);
+    dragStart={x:e.clientX,y:e.clientY};
+    dragWorld=project(state.lat,state.lon,state.z);
+    mapEl.classList.add("dragging");
+  });
+
+  mapEl.addEventListener("pointermove",e=>{
+    if(!dragging||!dragStart||!dragWorld)return;
+    const dx=e.clientX-dragStart.x;
+    const dy=e.clientY-dragStart.y;
+    const next=unproject(dragWorld.x-dx,dragWorld.y-dy,state.z);
+    state.lat=clamp(next.lat,-85,85);
+    state.lon=((next.lon+540)%360)-180;
+    renderTiles();
+  });
+
+  const stopDrag=e=>{
+    if(!dragging)return;
+    dragging=false;
+    mapEl.releasePointerCapture?.(e.pointerId);
+    mapEl.classList.remove("dragging");
+  };
+  mapEl.addEventListener("pointerup",stopDrag);
+  mapEl.addEventListener("pointercancel",stopDrag);
+
+  mapEl.addEventListener("wheel",e=>{
+    e.preventDefault();
+    setZoom(state.z+(e.deltaY<0?1:-1));
+  },{passive:false});
+
+  mapEl.addEventListener("keydown",e=>{
+    const step=80;
+    if(e.key==="ArrowLeft"){e.preventDefault();panPixels(step,0)}
+    if(e.key==="ArrowRight"){e.preventDefault();panPixels(-step,0)}
+    if(e.key==="ArrowUp"){e.preventDefault();panPixels(0,step)}
+    if(e.key==="ArrowDown"){e.preventDefault();panPixels(0,-step)}
+    if(e.key==="+"||e.key==="="){e.preventDefault();setZoom(state.z+1)}
+    if(e.key==="-"){e.preventDefault();setZoom(state.z-1)}
+  });
+
+  window.addEventListener("resize",()=>{if(dialog.open)renderTiles()});
 
   dialog.addEventListener("click",e=>{
     const shell=dialog.querySelector(".atlas-map-shell");
@@ -416,6 +565,4 @@ document.addEventListener("DOMContentLoaded",()=>{
     const r=shell.getBoundingClientRect();
     if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();
   });
-
-  regionBtns.forEach(btn=>btn.addEventListener("click",()=>render(btn.dataset.mapRegion)));
 });
