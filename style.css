@@ -3480,3 +3480,23 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
   image-rendering:auto;
   content-visibility:auto;
 }
+
+
+/* ===== MAP V7 CACHE + GPU PASS ===== */
+.atlas-map-tiles{
+  filter:saturate(.72) contrast(1.14) brightness(.48) hue-rotate(8deg);
+  transform:translate3d(0,0,0);
+  will-change:transform;
+}
+.atlas-map-tile{
+  filter:none!important;
+  will-change:auto!important;
+  contain:paint;
+}
+.atlas-map-markers{
+  transform:translate3d(0,0,0);
+  will-change:transform;
+}
+.atlas-slippy-map.dragging .atlas-map-gridfx{
+  opacity:.58;
+}
