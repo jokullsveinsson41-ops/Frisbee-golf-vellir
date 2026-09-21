@@ -3457,3 +3457,26 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
 .atlas-map-tile{
   contain:strict;
 }
+
+
+/* ===== MAP V6 HIGH-REFRESH OPTIMIZATION ===== */
+.atlas-slippy-map.dragging .atlas-map-gridfx{
+  opacity:.72;
+}
+.atlas-slippy-map.dragging .atlas-geo-pulse,
+.atlas-slippy-map.dragging .atlas-city-radar{
+  animation:none!important;
+}
+.atlas-slippy-map.dragging .atlas-geo-city,
+.atlas-slippy-map.dragging .atlas-geo-course>b{
+  backdrop-filter:none!important;
+}
+.atlas-map-tiles,
+.atlas-map-markers{
+  transform-origin:0 0;
+  contain:layout paint style;
+}
+.atlas-map-tile{
+  image-rendering:auto;
+  content-visibility:auto;
+}
