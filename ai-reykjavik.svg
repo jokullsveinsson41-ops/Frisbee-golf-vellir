@@ -86,7 +86,7 @@
 
 <!-- subtle flying disc animation: elegant throw into the basket -->
 <g aria-hidden="true">
-  <path d="M175 505 C390 385 650 390 845 475 C965 528 1050 612 1128 704"
+  <path d="M260 500 C500 385 760 410 955 548 C1040 608 1095 655 1128 682 C1132 698 1130 716 1128 735"
         fill="none" stroke="#79f5ff" stroke-width="2.2" stroke-linecap="round"
         stroke-dasharray="3 12" opacity=".08">
     <animate attributeName="opacity" values="0;.10;.16;.05;0;0"
@@ -104,7 +104,7 @@
     <ellipse cx="-18" cy="1" rx="19" ry="4.5"
              fill="#79f5ff" fill-opacity=".10"/>
     <animateMotion
-      path="M175 505 C390 385 650 390 845 475 C965 528 1050 612 1128 704"
+      path="M260 500 C500 385 760 410 955 548 C1040 608 1095 655 1128 682 C1132 698 1130 716 1128 735"
       dur="6s" repeatCount="indefinite"
       keyTimes="0;.48;1" keyPoints="0;1;1" calcMode="linear"/>
     <animate attributeName="opacity"
@@ -114,7 +114,7 @@
   </g>
 
   <!-- soft basket response when the disc arrives -->
-  <ellipse cx="1128" cy="705" rx="34" ry="14"
+  <ellipse cx="1128" cy="735" rx="34" ry="14"
            fill="none" stroke="#d8ff9f" stroke-width="2" opacity="0">
     <animate attributeName="rx" values="18;18;42;54;54"
              keyTimes="0;.465;.505;.56;1" dur="6s" repeatCount="indefinite"/>
