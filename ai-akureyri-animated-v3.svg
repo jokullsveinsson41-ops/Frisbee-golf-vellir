@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000"><defs><linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08131d"/><stop offset=".55" stop-color="#162b31"/><stop offset="1" stop-color="#0a1113"/></linearGradient><radialGradient id="g"><stop stop-color="#72f5ff" stop-opacity=".55"/><stop offset="1" stop-color="#72f5ff" stop-opacity="0"/></radialGradient><filter id="n"><feTurbulence baseFrequency=".8" numOctaves="2" seed="6"/><feComponentTransfer><feFuncA type="table" tableValues="0 .08"/></feComponentTransfer></filter></defs><rect width="1600" height="1000" fill="url(#s)"/><ellipse cx="450" cy="210" rx="420" ry="240" fill="url(#g)"/><path d="M0 610 L250 420 480 610 760 330 1020 590 1280 390 1600 620 1600 1000 0 1000Z" fill="#0b1518"/><path d="M0 730 C230 660 420 690 620 640 C820 590 1040 610 1260 560 C1400 530 1500 540 1600 520 L1600 1000 0 1000Z" fill="#15302c"/><g transform="translate(1080 560)"><rect x="0" width="16" height="220" rx="8" fill="#bff6f1"/><rect x="-75" y="50" width="166" height="12" rx="6" fill="#bff6f1"/><path d="M-55 62 L-38 145 M-30 62 L-16 145 M-4 62 L0 145 M20 62 L18 145 M45 62 L40 145 M68 62 L56 145" stroke="#bff6f1" stroke-width="5"/><rect x="-44" y="145" width="104" height="12" rx="6" fill="#bff6f1"/></g>
+<!-- Elegant looping near miss: disc barely misses, drops, then resets -->
+<g aria-hidden="true">
+  <path d="M250 485 C500 370 770 395 945 520 C1020 574 1053 617 1064 646 C1087 665 1127 668 1160 696 C1191 722 1203 758 1190 786"
+        fill="none" stroke="#79f5ff" stroke-width="2" stroke-linecap="round"
+        stroke-dasharray="3 13" opacity=".075">
+    <animate attributeName="opacity" values="0;.08;.12;.06;0;0"
+      keyTimes="0;.05;.42;.66;.78;1" dur="6.2s" repeatCount="indefinite"/>
+  </path>
+
+  <g>
+    <ellipse cx="0" cy="0" rx="24" ry="7" fill="#d8ff9f" fill-opacity=".14"
+             stroke="#efffd7" stroke-width="2"/>
+    <path d="M-17 -1 C-7 -6 10 -7 19 -2" fill="none"
+          stroke="#79f5ff" stroke-opacity=".7" stroke-width="1.3"/>
+    <animateMotion
+      path="M250 485 C500 370 770 395 945 520 C1020 574 1053 617 1064 646 C1087 665 1127 668 1160 696 C1191 722 1203 758 1190 786"
+      dur="6.2s" repeatCount="indefinite"
+      keyTimes="0;.62;1" keyPoints="0;1;1" calcMode="linear"/>
+    <animate attributeName="opacity"
+      values="0;1;1;1;0;0"
+      keyTimes="0;.04;.54;.64;.72;1"
+      dur="6.2s" repeatCount="indefinite"/>
+  </g>
+
+  <g stroke="#efffd7" stroke-width="3.2" stroke-linecap="round" opacity="0">
+    <path d="M1025 622 L1038 704"/>
+    <path d="M1050 622 L1058 705"/>
+    <animate attributeName="opacity"
+      values="0;0;.42;.12;0;0"
+      keyTimes="0;.46;.50;.56;.63;1"
+      dur="6.2s" repeatCount="indefinite"/>
+  </g>
+
+  <ellipse cx="1190" cy="788" rx="28" ry="6" fill="none"
+           stroke="#d8ff9f" stroke-width="1.5" opacity="0">
+    <animate attributeName="rx" values="18;18;34;40;40"
+      keyTimes="0;.58;.63;.68;1" dur="6.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;.20;0;0"
+      keyTimes="0;.58;.63;.72;1" dur="6.2s" repeatCount="indefinite"/>
+  </ellipse>
+</g>
+<rect width="1600" height="1000" filter="url(#n)" opacity=".22"/></svg>
