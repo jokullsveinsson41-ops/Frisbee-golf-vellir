@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000"><defs><linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a1310"/><stop offset=".5" stop-color="#243529"/><stop offset="1" stop-color="#111710"/></linearGradient><radialGradient id="g"><stop stop-color="#d8ff9f" stop-opacity=".48"/><stop offset="1" stop-color="#d8ff9f" stop-opacity="0"/></radialGradient><filter id="n"><feTurbulence baseFrequency=".65" numOctaves="3" seed="10"/><feComponentTransfer><feFuncA type="table" tableValues="0 .08"/></feComponentTransfer></filter></defs><rect width="1600" height="1000" fill="url(#s)"/><ellipse cx="1180" cy="180" rx="380" ry="230" fill="url(#g)"/><path d="M0 680 C200 520 390 580 570 490 C770 390 950 470 1120 390 C1300 300 1450 360 1600 300 L1600 1000 0 1000Z" fill="#102016"/><path d="M0 760 C240 650 480 700 680 610 C860 530 1080 580 1260 520 C1400 470 1510 500 1600 470 L1600 1000 0 1000Z" fill="#1c3523"/><path d="M210 810 C420 700 640 730 820 650" stroke="#8cf4b7" stroke-opacity=".24" stroke-width="3" fill="none"/><g transform="translate(850 530)"><rect x="0" width="16" height="220" rx="8" fill="#d8ffaf"/><rect x="-74" y="50" width="164" height="12" rx="6" fill="#d8ffaf"/><path d="M-54 62 L-36 146 M-29 62 L-15 146 M-3 62 L0 146 M21 62 L19 146 M46 62 L41 146 M68 62 L56 146" stroke="#d8ffaf" stroke-width="5"/><rect x="-43" y="146" width="102" height="12" rx="6" fill="#d8ffaf"/></g><!-- Wide curve-back make V2: long bomb, hard hook back, vertical drop into basket -->
+<g aria-hidden="true">
+  <path d="M150 470 C420 240 960 145 1385 330 C1530 395 1515 545 1320 615 C1130 685 980 630 900 585 C865 570 846 572 842 598 C839 620 844 640 850 662"
+        fill="none" stroke="#79f5ff" stroke-width="2.5" stroke-linecap="round"
+        stroke-dasharray="3 12" opacity=".075">
+    <animate attributeName="opacity" values="0;.08;.16;.10;0;0"
+      keyTimes="0;.04;.50;.67;.78;1" dur="7.2s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" values="38;0;-28"
+      dur="4s" repeatCount="indefinite"/>
+  </path>
+
+  <g>
+    <ellipse cx="0" cy="0" rx="26" ry="7.7"
+             fill="#d8ff9f" fill-opacity=".14"
+             stroke="#efffd7" stroke-width="2"/>
+    <path d="M-19 -1 C-9 -6 12 -7 21 -2"
+          fill="none" stroke="#79f5ff" stroke-opacity=".74" stroke-width="1.4"/>
+    <animateMotion
+      path="M150 470 C420 240 960 145 1385 330 C1530 395 1515 545 1320 615 C1130 685 980 630 900 585 C865 570 846 572 842 598 C839 620 844 640 850 662"
+      dur="7.2s" repeatCount="indefinite"
+      keyTimes="0;.62;1" keyPoints="0;1;1" calcMode="linear" rotate="auto"/>
+    <animate attributeName="opacity"
+      values="0;1;1;.94;0;0"
+      keyTimes="0;.035;.58;.63;.70;1"
+      dur="7.2s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- stronger chain catch right where the disc drops in -->
+  <ellipse cx="850" cy="662" rx="28" ry="11"
+           fill="none" stroke="#d8ff9f" stroke-width="2" opacity="0">
+    <animate attributeName="rx" values="16;16;36;52;52"
+      keyTimes="0;.60;.64;.70;1" dur="7.2s" repeatCount="indefinite"/>
+    <animate attributeName="ry" values="6;6;14;19;19"
+      keyTimes="0;.60;.64;.70;1" dur="7.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;.48;0;0"
+      keyTimes="0;.60;.64;.73;1" dur="7.2s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <g stroke="#efffd7" stroke-width="3.8" stroke-linecap="round" opacity="0">
+    <path d="M796 592 L812 676"/>
+    <path d="M822 592 L831 680"/>
+    <path d="M848 592 L850 682"/>
+    <path d="M874 592 L869 680"/>
+    <path d="M900 592 L887 676"/>
+    <animate attributeName="opacity"
+      values="0;0;.70;.20;0;0"
+      keyTimes="0;.605;.64;.69;.75;1"
+      dur="7.2s" repeatCount="indefinite"/>
+  </g>
+</g>
+<rect width="1600" height="1000" filter="url(#n)" opacity=".22"/></svg>
