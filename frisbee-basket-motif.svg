@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420">
+  <defs>
+    <linearGradient id="s" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9ffa5" stop-opacity=".82"/>
+      <stop offset="1" stop-color="#7bf6ff" stop-opacity=".26"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g fill="none" stroke="url(#s)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M160 44v298"/>
+    <path d="M92 67h136"/>
+    <path d="M74 83h172"/>
+    <path d="M98 83v118M118 83v126M140 83v130M160 83v132M180 83v130M202 83v126M222 83v118" stroke-width="2.4" opacity=".7"/>
+    <path d="M84 205h152"/>
+    <path d="M96 205l18 64h92l18-64"/>
+    <path d="M114 269h92"/>
+    <path d="M118 342h84"/>
+  </g>
+  <ellipse cx="243" cy="144" rx="39" ry="13" fill="#d9ffa5" fill-opacity=".05" stroke="#d9ffa5" stroke-opacity=".62" stroke-width="3" transform="rotate(-11 243 144)"/>
+  <path d="M278 115c-44 10-75 25-100 48" fill="none" stroke="#7bf6ff" stroke-opacity=".3" stroke-width="2" stroke-dasharray="4 8"/>
+</svg>
