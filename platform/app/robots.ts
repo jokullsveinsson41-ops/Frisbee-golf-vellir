@@ -1,0 +1,1 @@
+export default function robots(){return {rules:{userAgent:'*',allow:'/',disallow:['/admin','/api/','/saved','/scorecard']},sitemap:'https://disc-golf-iceland.jokullsveinsson41.chatgpt.site/sitemap.xml'};}

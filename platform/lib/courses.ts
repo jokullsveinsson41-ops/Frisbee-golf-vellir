@@ -1,0 +1,25 @@
+export type Lang = 'en' | 'is';
+export type Course = {
+ id:string; name:string; town:string; region:string; regionIs:string; holes:number;
+ lat:number; lng:number; locationVerified:boolean; locationSource:string;
+ description:string; descriptionIs:string; terrain:string|null; difficulty:string|null;
+ parking:boolean|null; fees:string|null; access:string|null; layouts:{name:string; pars:number[]|null; distances:number[]|null}[];
+ source:string; checked:string; mapUrl:string|null; image:string; imageLabel:string;
+};
+export const federation = 'https://www.folf.is/folfvellir-a-islandi-4/';
+const base = { locationVerified:false, source:federation, checked:'2026-09-22', parking:null, fees:null, access:null, mapUrl:null, image:'/images/iceland.jpg', imageLabel:'Iceland landscape · regional imagery' };
+const make=(c:Partial<Course>&Pick<Course,'id'|'name'|'town'|'region'|'regionIs'|'holes'|'lat'|'lng'|'description'|'descriptionIs'>):Course=>({...base,terrain:null,difficulty:null,layouts:[{name:'Manual layout',pars:null,distances:null}], locationSource:`https://github.com/jokullsveinsson41-ops/Frisbee-golf-vellir/blob/main/${c.id}.html`,...c});
+export const seedCourses:Course[]=[
+ make({id:'klambratun',name:'Klambratún',town:'Reykjavík',region:'Capital Region',regionIs:'Höfuðborgarsvæðið',holes:14,lat:64.138521,lng:-21.915918,description:'A city-park course, redesigned in 2023.',descriptionIs:'Völlur í borgargarði, endurhannaður árið 2023.',terrain:'Park',image:'/images/klambratun.jpg',imageLabel:'Klambratún park · course layout not pictured',mapUrl:'https://www.folf.is/wp-content/uploads/2023/11/klambri23-2.jpg'}),
+ make({id:'gufunes',name:'Gufunes',town:'Reykjavík',region:'Capital Region',regionIs:'Höfuðborgarsvæðið',holes:18,lat:64.143354,lng:-21.809444,description:'Three tee choices accommodate different playing abilities.',descriptionIs:'Þrír teigar bjóða upp á mismunandi erfiðleikastig.',parking:true,layouts:[{name:'Easy tees',pars:null,distances:null},{name:'Intermediate tees',pars:null,distances:null},{name:'Advanced tees',pars:null,distances:null}],mapUrl:'https://www.folf.is/wp-content/uploads/2021/05/Gufunes-2021-vallarkort-16b.jpg'}),
+ make({id:'grafarholt',name:'Grafarholt',town:'Reykjavík',region:'Capital Region',regionIs:'Höfuðborgarsvæðið',holes:18,lat:64.122685,lng:-21.750313,description:'A demanding woodland course in Leirdalur.',descriptionIs:'Krefjandi skógarvöllur í Leirdal.',terrain:'Woodland',difficulty:'Challenging'}),
+ make({id:'seljahverfi',name:'Seljadalur',town:'Reykjavík',region:'Capital Region',regionIs:'Höfuðborgarsvæðið',holes:9,lat:64.099381,lng:-21.845597,description:'Short valley holes; the federation recommends it for beginners.',descriptionIs:'Stuttar brautir í dal. ÍFS mælir með vellinum fyrir byrjendur.',difficulty:'Beginner friendly',terrain:'Valley'}),
+ make({id:'hamrar',name:'Hamrar',town:'Akureyri',region:'North Iceland',regionIs:'Norðurland',holes:18,lat:65.648829,lng:-18.104910,description:'Woodland play above the campsite, with two tee choices.',descriptionIs:'Völlur ofan tjaldsvæðis með tveimur teigum.',terrain:'Woodland',difficulty:'Challenging',layouts:[{name:'Red tees',pars:null,distances:null},{name:'White tees',pars:null,distances:null}]}),
+ make({id:'tjarnargardur',name:'Tjarnargarðurinn',town:'Egilsstaðir',region:'East Iceland',regionIs:'Austurland',holes:6,lat:65.263038,lng:-14.396607,description:'A compact course, renewed in 2022.',descriptionIs:'Lítill völlur sem var endurbættur árið 2022.',terrain:'Park'}),
+ make({id:'hallormsstadur',name:'Hallormstaðaskógur',town:'Hallormsstaður',region:'East Iceland',regionIs:'Austurland',holes:9,lat:65.086108,lng:-14.769205,description:'Two tees per hole in Guttormslundur.',descriptionIs:'Tveir teigar á hverri braut í Guttormslundi.',terrain:'Woodland',difficulty:'Challenging'}),
+ make({id:'haskoli-akureyri',name:'Háskólavöllurinn',town:'Akureyri',region:'North Iceland',regionIs:'Norðurland',holes:18,lat:65.680857,lng:-18.126469,description:'A university course with predominantly short holes.',descriptionIs:'Völlur við háskólann með að mestu stuttum brautum.'}),
+ make({id:'grimsey',name:'Grímsey',town:'Grímsey',region:'North Iceland',regionIs:'Norðurland',holes:9,lat:66.540543,lng:-18.017583,description:'Island disc golf by the Arctic Circle.',descriptionIs:'Frisbígolf á eyju við heimskautsbaug.'}),
+ make({id:'kjalarnes',name:'Kjalarnes',town:'Reykjavík',region:'Capital Region',regionIs:'Höfuðborgarsvæðið',holes:9,lat:64.237406,lng:-21.828556,description:'The first hole begins beside the swimming pool.',descriptionIs:'Fyrsta braut byrjar við sundlaugina.'})
+];
+export const normalize=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ð/g,'d').replace(/þ/g,'th');
+export function distanceKm(a:[number,number],b:[number,number]){const r=Math.PI/180,dlat=(b[0]-a[0])*r,dlon=(b[1]-a[1])*r;return 6371*2*Math.atan2(Math.sqrt(Math.sin(dlat/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dlon/2)**2),Math.sqrt(1-(Math.sin(dlat/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dlon/2)**2)));}
