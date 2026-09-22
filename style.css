@@ -3500,3 +3500,293 @@ linear-gradient(150deg,#0c1410,#07100d)!important}
 .atlas-slippy-map.dragging .atlas-map-gridfx{
   opacity:.58;
 }
+
+
+/* ===== FRISBEE THEME PASS V1 — premium disc golf identity ===== */
+:root{
+  --disc-mint:#d9ffa5;
+  --disc-cyan:#7bf6ff;
+  --disc-ink:#07100c;
+}
+
+/* Brand now reads like disc golf, not generic tech. */
+.brand-mark{
+  position:relative;
+  overflow:visible;
+  border-radius:50%!important;
+  box-shadow:
+    inset 0 0 0 1px rgba(217,255,165,.16),
+    0 0 24px rgba(123,246,255,.09);
+}
+.brand-mark::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:72%;
+  height:30%;
+  transform:translate(-50%,-50%) rotate(-9deg);
+  border:1px solid rgba(225,255,190,.84);
+  border-radius:50%;
+  background:linear-gradient(180deg,rgba(217,255,165,.14),rgba(123,246,255,.025));
+  box-shadow:0 0 11px rgba(217,255,165,.15);
+}
+.brand-mark::after{
+  content:"";
+  position:absolute;
+  left:-9px;
+  top:50%;
+  width:7px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(123,246,255,.68));
+  box-shadow:-7px 4px 0 rgba(217,255,165,.23),-15px -4px 0 rgba(123,246,255,.13);
+}
+
+/* Disc-flight signature through heroes. */
+.atlas-hero::after,
+.atlas-city-hero::after,
+.course-app-page .graf-hero::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  pointer-events:none;
+  width:min(500px,46vw);
+  aspect-ratio:520/220;
+  right:2%;
+  top:10%;
+  background:url("frisbee-disc-motif.svg") center/contain no-repeat;
+  opacity:.55;
+  mix-blend-mode:screen;
+  filter:drop-shadow(0 0 18px rgba(123,246,255,.05));
+  animation:frisbeeDrift 8s ease-in-out infinite alternate;
+}
+.atlas-city-hero::after{
+  right:4%;
+  top:15%;
+  opacity:.42;
+}
+.course-app-page .graf-hero::after{
+  right:3%;
+  top:9%;
+  opacity:.48;
+}
+
+/* Section headers get a subtle mini-disc and flight line. */
+.atlas-section-head h2,
+.graf-command-head h2,
+.frisbi-ai-intro h2{
+  position:relative;
+}
+.atlas-section-head h2::after,
+.graf-command-head h2::after,
+.frisbi-ai-intro h2::after{
+  content:"";
+  display:inline-block;
+  width:38px;
+  height:10px;
+  margin-left:12px;
+  border:1px solid rgba(217,255,165,.42);
+  border-radius:50%;
+  vertical-align:.18em;
+  transform:rotate(-8deg);
+  box-shadow:-17px 7px 0 -4px rgba(123,246,255,.16),0 0 13px rgba(217,255,165,.08);
+}
+
+/* Course and city cards now carry a basket identity. */
+.atlas-card,
+.reyk-card,
+.featured-atlas-card,
+.graf-action{
+  isolation:isolate;
+}
+.atlas-card::before,
+.reyk-card::before,
+.featured-atlas-card::before,
+.graf-action::before{
+  content:"";
+  position:absolute;
+  z-index:3;
+  right:-4px;
+  bottom:-16px;
+  width:105px;
+  height:138px;
+  pointer-events:none;
+  background:url("frisbee-basket-motif.svg") right bottom/contain no-repeat;
+  opacity:.075;
+  filter:saturate(.9);
+  transform:translate3d(8px,8px,0) scale(.92);
+  transition:opacity .28s ease,transform .42s cubic-bezier(.2,.8,.2,1),filter .28s ease;
+}
+.atlas-card:hover::before,
+.reyk-card:hover::before,
+.featured-atlas-card:hover::before,
+.graf-action:hover::before{
+  opacity:.24;
+  transform:translate3d(-2px,-3px,0) scale(1);
+  filter:drop-shadow(0 0 12px rgba(123,246,255,.14));
+}
+
+/* A faint chain pattern sits behind course grids. */
+.reyk-course-grid,
+.graf-action-grid,
+.atlas-city-grid{
+  position:relative;
+}
+.reyk-course-grid::before,
+.graf-action-grid::before,
+.atlas-city-grid::before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  z-index:-1;
+  inset:-22px;
+  background:
+    radial-gradient(ellipse at 12% 24%,rgba(217,255,165,.035) 0 1px,transparent 1.6px) 0 0/18px 22px,
+    radial-gradient(ellipse at 12% 24%,rgba(123,246,255,.022) 0 1px,transparent 1.6px) 9px 11px/18px 22px;
+  mask-image:linear-gradient(90deg,transparent,black 14% 86%,transparent);
+}
+
+/* Buttons use a tiny flying disc sweep instead of generic shine. */
+.button{
+  position:relative;
+  overflow:hidden;
+}
+.button::before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  left:-38px;
+  top:50%;
+  width:25px;
+  height:8px;
+  border:1px solid currentColor;
+  border-radius:50%;
+  opacity:0;
+  transform:translateY(-50%) rotate(-8deg);
+}
+.button:hover::before,
+.button:focus-visible::before{
+  animation:discButtonFly .72s cubic-bezier(.2,.8,.2,1);
+}
+
+/* Disc golf target marks inside small UI pills and verification badges. */
+.glass-pill,
+.ready-pill,
+.graf-verified,
+.feature-badge{
+  position:relative;
+}
+.glass-pill::before,
+.ready-pill::before,
+.graf-verified::before,
+.feature-badge::before{
+  content:"";
+  display:inline-block;
+  width:8px;
+  height:3px;
+  margin-right:6px;
+  border:1px solid rgba(217,255,165,.68);
+  border-radius:50%;
+  transform:rotate(-7deg);
+  vertical-align:1px;
+}
+
+/* Premium basket watermark in course command and footer areas. */
+.graf-command::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  right:clamp(4px,4vw,54px);
+  top:18px;
+  width:138px;
+  height:180px;
+  background:url("frisbee-basket-motif.svg") center/contain no-repeat;
+  opacity:.045;
+}
+.atlas-footer{
+  position:relative;
+  overflow:hidden;
+}
+.atlas-footer::before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  right:5%;
+  bottom:-62px;
+  width:125px;
+  height:170px;
+  background:url("frisbee-basket-motif.svg") center/contain no-repeat;
+  opacity:.055;
+}
+
+/* Hole rows feel like actual holes, with a target dot at the end. */
+.modal-hole-row{
+  position:relative;
+}
+.modal-hole-row::after{
+  content:"";
+  position:absolute;
+  right:11px;
+  top:50%;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  transform:translateY(-50%);
+  background:rgba(217,255,165,.12);
+  box-shadow:0 0 0 3px rgba(123,246,255,.025);
+}
+
+/* Small motion that reads as a floating disc, not generic UI motion. */
+@keyframes frisbeeDrift{
+  from{transform:translate3d(-8px,0,0) rotate(-1deg);opacity:.38}
+  to{transform:translate3d(9px,7px,0) rotate(1.5deg);opacity:.58}
+}
+@keyframes discButtonFly{
+  0%{left:-38px;opacity:0;transform:translateY(-50%) rotate(-12deg) scale(.8)}
+  18%{opacity:.42}
+  78%{opacity:.28}
+  100%{left:calc(100% + 12px);opacity:0;transform:translateY(-70%) rotate(7deg) scale(1.06)}
+}
+
+@media(max-width:760px){
+  .atlas-hero::after,
+  .atlas-city-hero::after,
+  .course-app-page .graf-hero::after{
+    width:260px;
+    right:-58px;
+    top:8%;
+    opacity:.30;
+  }
+  .atlas-section-head h2::after,
+  .graf-command-head h2::after,
+  .frisbi-ai-intro h2::after{
+    width:28px;
+    height:8px;
+    margin-left:8px;
+  }
+  .atlas-card::before,
+  .reyk-card::before,
+  .featured-atlas-card::before,
+  .graf-action::before{
+    width:82px;
+    height:108px;
+    opacity:.07;
+  }
+  .graf-command::after{
+    width:100px;
+    height:132px;
+    opacity:.035;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .atlas-hero::after,
+  .atlas-city-hero::after,
+  .course-app-page .graf-hero::after{
+    animation:none!important;
+  }
+  .button:hover::before,
+  .button:focus-visible::before{
+    animation:none!important;
+  }
+}
