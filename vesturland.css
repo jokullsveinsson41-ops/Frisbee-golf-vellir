@@ -48,14 +48,6 @@
   .west-region .city-hero-row{flex-wrap:wrap}
 }
 @media(max-width:700px){
-  /* A readable two-column region list accompanies the island on small screens. */
-  .atlas-island-stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:calc(100% - 28px);aspect-ratio:auto;margin:28px 14px;padding-top:180px}
-  .atlas-island-stage .atlas-iceland-shape{height:170px;inset:0;opacity:.7}
-  .atlas-island-stage .atlas-location{position:relative;left:auto;top:auto;width:auto;height:auto;transform:none}
-  .atlas-island-stage .atlas-location-card{position:relative;inset:auto!important;transform:none!important;min-width:0;padding:14px 12px;height:100%}
-  .atlas-island-stage .atlas-location-card:before,.atlas-island-stage .atlas-location-rings,.atlas-island-stage .atlas-location-dot{display:none}
-  .atlas-island-stage .atlas-location-card b{font-size:.875rem;line-height:1.3;overflow-wrap:anywhere}
-  .atlas-island-stage .atlas-location-card small,.atlas-island-stage .atlas-location-card em{font-size:.75rem;line-height:1.5}
   .atlas-island-panel{min-height:430px}
   .atlas-selector-hint{font-size:.75rem}
   .west-region .atlas-city-copy,.west-course .graf-hero-content{padding-top:120px}
@@ -85,3 +77,28 @@
 .highland-notice{padding:20px;border:1px solid #d6b86c;border-radius:16px;background:#292516;color:#f0dfb7;font-size:1rem;line-height:1.65;margin:24px 0}
 .highland-notice a{color:inherit;text-decoration:underline}
 @media(max-width:560px){.atlas-city-grid.atlas-city-grid-four{grid-template-rows:none;grid-auto-rows:250px}}
+
+/* Keep the map and its markers in one fixed-ratio coordinate system. */
+.atlas-island-stage{display:block;aspect-ratio:486/344;padding:0}
+.atlas-island-stage .atlas-location-capital{left:24%;top:73%}
+.atlas-island-stage .atlas-location-akureyri{left:55%;top:31%}
+.atlas-island-stage .atlas-location-egilsstadir{left:81%;top:47%}
+.atlas-island-stage .atlas-location-west{left:26%;top:53%}
+.atlas-island-stage .atlas-location-highlands{left:69%;top:36%}
+.atlas-location-highlands .atlas-location-card{left:20px;top:auto;bottom:20px;transform:none}
+.atlas-pin-number{display:none}
+.atlas-map-key{display:none}
+.atlas-location:focus-visible{outline:2px solid #e4ffb8;outline-offset:6px;border-radius:50%}
+@media(max-width:700px){
+ .atlas-island-panel{display:flex;flex-direction:column;justify-content:center;min-height:0;padding:30px 8px 52px}
+ .atlas-island-stage{flex:none;width:100%;margin:15px 0 24px;aspect-ratio:486/344}
+ .atlas-island-stage .atlas-iceland-shape{inset:0;width:100%;height:100%;opacity:1}
+ .atlas-island-stage .atlas-location{position:absolute;width:44px;height:44px;transform:translate(-50%,-50%)}
+ .atlas-island-stage .atlas-location-card,.atlas-island-stage .atlas-location-rings,.atlas-island-stage .atlas-location-dot{display:none}
+ .atlas-pin-number{position:absolute;display:grid;place-items:center;width:24px;height:24px;left:10px;top:10px;border-radius:50%;background:#e4ffb8;color:#07110b;font:bold 12px/1 sans-serif;box-shadow:0 0 0 3px #07110b,0 0 12px #79f5ff66}
+ .atlas-map-key{position:relative;z-index:5;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;padding:0 8px}
+ .atlas-map-key a{display:flex;align-items:center;gap:8px;color:#edf5e9;text-decoration:none;font-size:12px;min-height:44px;padding:8px;border:1px solid #344d3b;border-radius:9px;background:#09140f}
+ .atlas-map-key b{color:#d6e2a8;font-size:13px}
+ .atlas-map-key a:focus-visible{outline:2px solid #e4ffb8;outline-offset:2px}
+ .atlas-selector-hint{bottom:14px}
+}
