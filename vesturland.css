@@ -72,7 +72,7 @@
 
 /* Hálendið: fifth region, with a schematic regional atlas marker. */
 .atlas-city-grid.atlas-city-grid-four{grid-template-rows:none;grid-auto-rows:300px}
-.atlas-location-highlands{left:55%;top:63%}
+.atlas-location-highlands{left:55%;top:56%}
 .atlas-location-highlands .atlas-location-card{min-width:130px}
 .highland-notice{padding:20px;border:1px solid #d6b86c;border-radius:16px;background:#292516;color:#f0dfb7;font-size:1rem;line-height:1.65;margin:24px 0}
 .highland-notice a{color:inherit;text-decoration:underline}
@@ -84,7 +84,7 @@
 .atlas-island-stage .atlas-location-akureyri{left:55%;top:31%}
 .atlas-island-stage .atlas-location-egilsstadir{left:81%;top:47%}
 .atlas-island-stage .atlas-location-west{left:26%;top:53%}
-.atlas-island-stage .atlas-location-highlands{left:69%;top:36%}
+.atlas-island-stage .atlas-location-highlands{left:55%;top:56%}
 .atlas-location-highlands .atlas-location-card{left:20px;top:auto;bottom:20px;transform:none}
 .atlas-pin-number{display:none}
 .atlas-map-key{display:none}
