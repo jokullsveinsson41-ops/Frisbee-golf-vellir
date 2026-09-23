@@ -12,9 +12,17 @@ document.addEventListener("DOMContentLoaded",()=>{
   const search=document.querySelector("#courseSearch");
   if(search){
     const cards=[...document.querySelectorAll(".course-card,.reyk-card")];
+    const fold=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ð/g,"d").replace(/þ/g,"th").trim();
     search.addEventListener("input",()=>{
-      const q=search.value.toLowerCase().trim();
-      cards.forEach(c=>c.style.display=c.textContent.toLowerCase().includes(q)?"":"none");
+      const q=fold(search.value);
+      let visible=0;
+      cards.forEach(c=>{
+        const matches=fold(c.textContent).includes(q);
+        c.style.display=matches?"":"none";
+        if(matches) visible++;
+      });
+      const empty=document.getElementById("courseEmpty");
+      if(empty) empty.hidden=visible>0;
     });
   }
 
@@ -169,6 +177,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     .trim();
 
   const answers=[
+{"keys": ["vesturland", "west iceland"], "answer": "Á Vesturlandssíðunni eru níu vellir: Garðalundur á Akranesi, Hvanneyri, Borgarnes, Bifröst, Stykkishólmur, Grundarfjörður, Ólafsvík, Hellissandur og Dalir í Búðardal. Opnaðu Vesturland undir Veldu svæði til að sjá brautir og leiðbeiningar."},{"keys": ["gardalundur", "Akranes", "Garðalundur"], "answer": "Garðalundur er á Vesturlandi, með 9 brautir og par 27 í skráðri aðaluppsetningu. Níu brautir í Garðalundi á Akranesi. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},{"keys": ["hvanneyri", "Hvanneyri", "Hvanneyri"], "answer": "Hvanneyri er á Vesturlandi, með 9 brautir og par 27 í skráðri aðaluppsetningu. Níu brautir á háskólasvæðinu á Hvanneyri. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},{"keys": ["borgarnes", "Borgarnes", "Borgarnes"], "answer": "Borgarnes er á Vesturlandi, með 5 brautir og par 15 í skráðri aðaluppsetningu. Fimm stuttar brautir í almenningsgarði. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},{"keys": ["bifrost", "Bifröst", "Bifröst"], "answer": "Bifröst er á Vesturlandi, með 7 brautir og par 21 í skráðri aðaluppsetningu. Sjö brautir samkvæmt núverandi UDisc-skráningu. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},{"keys": ["stykkisholmur", "Stykkishólmur", "Stykkishólmur"], "answer": "Stykkishólmur er á Vesturlandi, með 9 brautir og par 27 í skráðri aðaluppsetningu. Níu brautir í hæðóttu og grýttu landslagi. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},{"keys": ["grundarfjordur", "Grundarfjörður", "Grundarfjörður"], "answer": "Grundarfjörður er á Vesturlandi, með 9 brautir og par 27 í skráðri aðaluppsetningu. Stuttur níu brauta völlur með mishæðum. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},{"keys": ["olafsvik", "Ólafsvík", "Ólafsvík"], "answer": "Ólafsvík er á Vesturlandi, með 9 brautir og par 27 í skráðri aðaluppsetningu. Níu brautir við tjaldsvæðið í Ólafsvík. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},{"keys": ["hellissandur", "Hellissandur", "Hellissandur"], "answer": "Hellissandur er á Vesturlandi, með 9 brautir og par 27 í skráðri aðaluppsetningu. Stuttur níu brauta völlur í Tröð. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},{"keys": ["budardalur", "Búðardalur", "Dalir – Búðardalur"], "answer": "Dalir – Búðardalur er á Vesturlandi, með 9 brautir og par 27 í skráðri aðaluppsetningu. Níu brautir við skóla og tjaldsvæði. Opnaðu Vesturland og veldu völlinn til að sjá brautir og leiðbeiningar."},
     {
       keys:["byrjanda disk","byrjenda disk","fyrsti disk","beginner disc","new disc","hvaða disk","hvada disk"],
       answer:"Fyrir byrjanda er oft best að byrja á beinum putter eða midrange-diski sem er auðvelt að stjórna. Ekki byrja á mjög hraðri distance-driver — lærðu fyrst hreint kast og beina fluglínu."
@@ -361,3 +370,4 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(e.key==="Escape"&&dialog.open) dialog.classList.remove("atlas-live");
   });
 });
+
