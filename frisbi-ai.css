@@ -1,0 +1,22 @@
+.frisbi-chat-log{min-height:340px;max-height:620px;height:52vh;overflow-y:auto;overscroll-behavior:contain}
+.frisbi-msg{max-width:95%;width:fit-content}
+.frisbi-msg .frisbi-answer p,.frisbi-answer li{font-size:1rem;line-height:1.65;color:#e1e9e3;overflow-wrap:anywhere}
+.frisbi-answer p{margin:0 0 12px;white-space:pre-wrap}
+.frisbi-answer p:last-child{margin-bottom:0}
+.frisbi-answer ul,.frisbi-answer ol{padding-left:22px;margin:12px 0}
+.frisbi-answer li+li{margin-top:8px}
+.frisbi-answer a,.frisbi-sources a{color:#d6e2a8;text-decoration:underline;text-underline-offset:3px}
+.frisbi-answer code{font-size:.9em;background:#243028;padding:2px 5px;border-radius:4px}
+.frisbi-sources{display:flex;flex-wrap:wrap;gap:8px 14px;border-top:1px solid #34453b;margin-top:14px;padding-top:12px;font-size:.875rem}
+.frisbi-sources strong{width:100%}
+.frisbi-ai-form{align-items:end}
+.frisbi-ai-form textarea{width:100%;resize:vertical;min-height:68px;max-height:220px;padding:14px 16px;border:1px solid #425348;background:#101d16;color:#fff;border-radius:18px;font:inherit;font-size:1rem;line-height:1.4}
+.frisbi-ai-form textarea:focus{outline:2px solid #d6e2a8;outline-offset:2px}
+.frisbi-chat button:disabled{opacity:.5;cursor:wait}
+.frisbi-chat-tools{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 18px}
+.frisbi-chat-tools button,.frisbi-error button{font:inherit;font-size:.875rem;color:#e1e9e3;background:#192c21;border:1px solid #425348;border-radius:12px;padding:9px 13px;cursor:pointer;min-height:42px}
+.frisbi-chat-tools button[hidden]{display:none}
+.frisbi-live{font-size:.875rem;letter-spacing:0}
+.frisbi-ai-note{font-size:.8rem!important;line-height:1.6!important}
+.frisbi-error{border-color:#66563a}
+@media(max-width:700px){.frisbi-chat-log{height:55vh;max-height:600px}.frisbi-msg{width:95%}.frisbi-ai-form{grid-template-columns:1fr 44px}.frisbi-ai-suggestions button{white-space:normal;line-height:1.5}.frisbi-chat-tools{padding:10px 12px}}
